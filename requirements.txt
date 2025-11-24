@@ -7,3 +7,6 @@ torch
 torchvision
 streamlit
 pandas
+seaborn
+scikit-learn
+tqdm
