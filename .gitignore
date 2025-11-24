@@ -1,0 +1,5 @@
+venv/
+sampleDashboard/video.mp4
+frames/
+__pycache__/
+*.pyc
