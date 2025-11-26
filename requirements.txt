@@ -3,7 +3,19 @@ opencv-python
 numpy
 matplotlib
 pillow
+streamlit
 torch
 torchvision
-streamlit
+
+# req for eda_onDataset.py
+#numpy
 pandas
+#matplotlib
+seaborn
+#opencv-python
+#pillow
+scipy
+tqdm
+#torch
+#torchvision
+torchaudio
