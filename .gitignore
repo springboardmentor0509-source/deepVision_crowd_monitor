@@ -1,3 +1,22 @@
+<<<<<<< HEAD
 ShanghaiTech/
 shanghaitech_h5_empty/
 crowd_video.mp4
+=======
+# Python & Virtual Env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Datasets & Media Files
+dataset/
+crowd_video.mp4
+
+# OS / Editor Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+>>>>>>> 63d20ffefbb207e514f549accf39d744d32b963a
