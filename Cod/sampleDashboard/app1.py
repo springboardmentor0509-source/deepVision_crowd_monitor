@@ -1,168 +1,189 @@
 import streamlit as st
 import pandas as pd
-# import numpy as np
-# text utilities
+from pathlib import Path
+from PIL import Image
+import time
+
+# ------------------------------
+# Header / Intro
+# ------------------------------
+st.set_page_config(page_title="Start-up Dashboard", layout="wide")
 st.title("Start-up Dashboard")
 st.header("Welcome to the Start-up Dashboard")
 st.subheader("Your one-stop solution for managing start-up data")
 st.write("This dashboard provides insights and analytics for start-up companies.")
+
 st.markdown("""
-    ### Features:
-    - Real-time data visualization
-    - Customizable dashboards
-    - Collaboration tools for teams
-    """)
+### Features:
+- Real-time data visualization  
+- Customizable dashboards  
+- Collaboration tools for teams  
+""")
 
 st.code("""
-    import streamlit as st
+import streamlit as st
             
-    st.title("Start-up Dashboard")
-    st.header("Welcome to the Start-up Dashboard")
-    st.subheader("Your one-stop solution for managing start-up data")
-    st.write("This dashboard provides insights and analytics for start-up companies.")
-    """)
+st.title("Start-up Dashboard")
+st.header("Welcome to the Start-up Dashboard")
+st.subheader("Your one-stop solution for managing start-up data")
+st.write("This dashboard provides insights and analytics for start-up companies.")
+""")
+
 st.write("E = mc^2")
-st.latex(""" 
-    E = mc^2
-    """)
-# display utilities
-df = pd.DataFrame({
+st.latex("E = mc^2")
+
+# ------------------------------
+# Simple DataFrame + Metrics
+# ------------------------------
+df_static = pd.DataFrame({
     "Metric": ["Revenue", "Expenses", "Profit"],
     "Value": [100000, 80000, 20000]
 })
+st.dataframe(df_static)
 
-st.dataframe(df)
-
-st.metric(label="Revenue", value="$100,000", delta="-$5,000 grater than last month")
+st.metric(label="Revenue", value="$100,000", delta="-$5,000 greater than last month")
 
 st.json({
     "name": "Start-up Dashboard",
     "version": "1.0",
     "description": "A dashboard for start-up companies to visualize their data.",
-    "author": {
-        "name": "Your Name",
-        "email": "your.email@example.com",
-        "license": "MIT"
-    }
+    "author": {"name": "Your Name", "email": "your.email@example.com", "license": "MIT"}
 })
 
-# media utilities
-st.image('deepVision_crowd_monitor-main\Cod\sampleDashboard\photo.jpg', caption='Start-up Team')
-st.video('deepVision_crowd_monitor-main\Cod\sampleDashboard\video.mp4')
+# ------------------------------
+# Asset paths (robust)
+# ------------------------------
+HERE = Path(__file__).parent
+IMG = HERE / "photo.jpg"
+VID = HERE / "video.mp4"
 
-# creating layouts
-st.sidebar.title("Navigation")
-st.sidebar.header("Go to")
+# Show image (if present) or friendly error
+if IMG.exists():
+    try:
+        img = Image.open(IMG)
+        st.image(img, caption="Start-up Team")
+    except Exception as e:
+        st.error(f"Failed to open image {IMG}: {e}")
+else:
+    st.info(f"(Tip) Put 'photo.jpg' in the same folder as this script to display the team image. Expected path: {IMG}")
 
+# Show video (if present)
+if VID.exists():
+    try:
+        st.video(str(VID))
+    except Exception as e:
+        st.warning(f"Failed to play video {VID}: {e}")
+else:
+    st.info(f"(Tip) Put 'video.mp4' in the same folder as this script to show a demo video. Expected path: {VID}")
+
+# ------------------------------
+# Layout: image + video side-by-side
+# ------------------------------
 c1, c2 = st.columns(2)
 with c1:
-    st.image('deepVision_crowd_monitor-main\Cod\sampleDashboard\photo.jpg', caption='Start-up Team')
+    if IMG.exists():
+        st.image(str(IMG), caption="Team (left column)")
 with c2:
-    st.video('deepVision_crowd_monitor-main\Cod\sampleDashboard\video.mp4')
+    if VID.exists():
+        st.video(str(VID))
 
-
-#showing progress
-import time
-
+# ------------------------------
+# Progress bar controls
+# ------------------------------
+st.write("### Progress Control")
 my_bar = st.progress(0)
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    if st.button("Start "):
-        for i in range(100):
+    if st.button("Start"):
+        for i in range(101):
             time.sleep(0.02)
             my_bar.progress(i)
-        st.success("Process Completed Successfully ")
-
+        st.success("Process Completed Successfully")
 
 with col2:
-    if st.button("Stop "):
+    if st.button("Stop"):
         st.error("Process Stopped — Something went wrong!")
-
 
 with col3:
     if st.button("Warn"):
         st.warning("Process might take longer than expected")
-        for i in range(100):
-            time.sleep(0.06)
+        for i in range(101):
+            time.sleep(0.03)
             my_bar.progress(i)
-        with col1:
-            st.success("Long Process Completed")
-
+        st.success("Long Process Completed")
 
 with col4:
     if st.button("Info ℹ"):
-        info_placeholder = st.empty()
-        info_placeholder.info("Info: Progress will start on start button click")
+        info = st.empty()
+        info.info("Info: Progress will start when you click Start")
         time.sleep(1)
-        info_placeholder.empty()
+        info.empty()
 
+# ------------------------------
+# Input form
+# ------------------------------
+st.write("### User Information Form")
+name = st.text_input("Enter your name")
+age = st.number_input("Enter your age", min_value=0, max_value=120)
+dob = st.date_input("Enter your date of birth")
+password = st.text_input("Enter your password", type="password")
 
-# taking inputs
-name = st.text_input("Enter your name", key="name")
-age = st.number_input("Enter your age", min_value=0, max_value=120, key="age")
-dob = st.date_input("Enter your date of birth", key="dob")
-password = st.text_input("Enter your password", type="password", key="password")
-
-btn = st.button("Submit")
-if btn:
-    success_placeholder = st.empty()
+if st.button("Submit Info"):
     if name and age and dob and password:
-        # st.balloons()
-        success_placeholder.success(f"Hello {name}, your age is {age} and you were born on {dob}.")
+        placeholder = st.empty()
+        placeholder.success(f"Hello {name}, your age is {age} and you were born on {dob}.")
         time.sleep(3)
-        success_placeholder.empty()
-        
+        placeholder.empty()
     else:
-        success_placeholder.error("Please fill all the fields.")
-        time.sleep(1)
-        success_placeholder.empty()
+        st.error("Please fill all the fields.")
 
-
-
-# dropdowns
-language = st.selectbox("Select your favorite programming language",
-             ["Python", "JavaScript", "Java", "C++", "Ruby"], key="language")
+# ------------------------------
+# Selectors
+# ------------------------------
+language = st.selectbox("Favorite programming language:", ["Python", "JavaScript", "Java", "C++", "Ruby"])
 st.write(f"You selected: {language}")
 
-
-# multi-select
-frameworks = st.multiselect("Select the frameworks you have experience with",
-             ["Django", "Flask", "React", "Angular", "Vue"], key="frameworks")
+frameworks = st.multiselect("Frameworks you use:", ["Django", "Flask", "React", "Angular", "Vue"])
 st.write(f"You selected: {frameworks}")
 
-# sliders
-rating = st.slider("Rate your experience with Streamlit", 0, 10, key="rating")
-st.write(f"You rated: {rating}")
+rating = st.slider("Rate your experience with Streamlit:", 0, 10)
+st.write(f"You rated: {rating}/10")
 
-# checkboxes
-agree = st.checkbox("I agree to the terms and conditions", key="agree")
-st.write(f"You {'agreed' if agree else 'did not agree'} to the terms and conditions.")
+agree = st.checkbox("I agree to the terms and conditions")
+st.write("Status:", "Agreed" if agree else "Not agreed")
 
-# radio buttons
-gender = st.radio("Select your gender", ["Male", "Female", "Other"], key="gender")
-st.write(f"You selected: {gender}")
+gender = st.radio("Select gender:", ["Male", "Female", "Other"])
+st.write("You selected:", gender)
 
-#file uploader
-uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx"], key="file_uploader")
+# ------------------------------
+# SINGLE File uploader (unique key)
+# ------------------------------
+st.write("### Upload a File (CSV or XLSX)")
+
+uploaded_file = st.file_uploader("Choose a CSV or XLSX file", type=["csv", "xlsx"], key="main_uploader")
 if uploaded_file is not None:
-    file_details = {"Filename": uploaded_file.name, "FileType": uploaded_file.type, "FileSize": uploaded_file.size}
+    # show file metadata
+    file_details = {
+        "Filename": uploaded_file.name,
+        "FileType": uploaded_file.type,
+        "FileSize": uploaded_file.size
+    }
     st.write(file_details)
-    if uploaded_file.type == "text/csv":
-        df = pd.read_csv(uploaded_file)
-        st.dataframe(df.describe())
-    elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-        df = pd.read_excel(uploaded_file)
-        st.dataframe(df.describe())
 
+    # make sure to reset pointer if reused
+    try:
+        uploaded_file.seek(0)
+    except Exception:
+        pass
 
-uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx"], key="file_uploader")
-if uploaded_file is not None:
-    file_details = {"Filename": uploaded_file.name, "FileType": uploaded_file.type, "FileSize": uploaded_file.size}
-    st.write(file_details)
-    if uploaded_file.type == "text/csv":
-        df = pd.read_csv(uploaded_file)
-        st.dataframe(df.describe())
-    elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-        df = pd.read_excel(uploaded_file)
-        st.dataframe(df.describe())
+    # read file robustly
+    try:
+        if uploaded_file.name.lower().endswith(".csv"):
+            df_uploaded = pd.read_csv(uploaded_file)
+        else:
+            df_uploaded = pd.read_excel(uploaded_file)
+        st.dataframe(df_uploaded)
+        st.write(df_uploaded.describe(include="all"))
+    except Exception as e:
+        st.error(f"Failed to read uploaded file: {e}")
