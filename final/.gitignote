@@ -1,0 +1,17 @@
+
+# Python & Virtual Env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Datasets & Media Files
+dataset/
+crowd_video.mp4
+
+# OS / Editor Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

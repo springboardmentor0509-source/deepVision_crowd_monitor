@@ -1,0 +1,29 @@
+yt-dlp
+opencv-python
+numpy
+matplotlib
+pillow
+torch
+torchvision
+
+#req for eda_onDataset.py
+#numpy
+pandas
+#matplotlib
+seaborn
+#opencv-python
+#Pillow
+scipy
+tqdm
+#torch
+#torchvision
+torchaudio
+
+# Backend & Frontend requirements
+fastapi
+uvicorn
+python-multipart
+streamlit
+scikit-learn
+joblib
+scikit-image
