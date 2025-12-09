@@ -1,9 +1,18 @@
 # Python & Virtual Env
 venv/
+venv311/          # <-- new GPU env
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Model weights / checkpoints
+*.pth             # e.g., best_csrnet_model.pth
+*.pt
+*.joblib          # random forest or other saved models
+
+# Training outputs / logs
+results/          # all experiment outputs (CSVs, PNGs, etc.)  
 
 # Datasets & Media Files
 dataset/
@@ -11,6 +20,7 @@ Dataset/
 crowd_video.mp4
 processed_data/
 processed_data/*
+
 # OS / Editor Files
 .DS_Store
 Thumbs.db
