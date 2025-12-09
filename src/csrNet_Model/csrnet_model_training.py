@@ -6,17 +6,18 @@ from torch.utils.data import DataLoader
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from csrnet_Model.csrnet_preprocessing import CSRNetDataset
-from csrnet_Model.csr_model import CSRNet, save_model_architecture
+from csrNet_Model.csrnet_preprocessing import CSRNetDataset
+from csrNet_Model.csr_model import CSRNet, save_model_architecture
+from pathlib import Path
 
+# Get project root
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+MODEL_DIR = PROJECT_ROOT / "models and code"
+RESULT_DIR = PROJECT_ROOT / "results" / "csrnet_cnn"
+DATASET_ROOT = PROJECT_ROOT / "Dataset" / "ShanghaiTech"
 
-# Paths
-MODEL_DIR = "../../models/csrnet_cnn"
-RESULT_DIR = "../../results/csrnet_cnn"
-DATASET_ROOT = "../../dataset/ShanghaiTech"
-
-os.makedirs(MODEL_DIR, exist_ok=True)
-os.makedirs(RESULT_DIR, exist_ok=True)
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+RESULT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # Training Function
@@ -27,8 +28,8 @@ def train_csrnet():
     BATCH = 4
     EPOCHS = 20
 
-    train_ds = CSRNetDataset(DATASET_ROOT, part="A", mode="train")
-    val_ds   = CSRNetDataset(DATASET_ROOT, part="A", mode="test")
+    train_ds = CSRNetDataset(str(DATASET_ROOT), part="A", mode="train")
+    val_ds   = CSRNetDataset(str(DATASET_ROOT), part="A", mode="test")
 
     train_loader = DataLoader(train_ds, batch_size=BATCH, shuffle=True)
     val_loader   = DataLoader(val_ds, batch_size=1, shuffle=False)
@@ -36,7 +37,7 @@ def train_csrnet():
     model = CSRNet(load_weights=True).to(DEVICE)
 
     # Save model architecture
-    save_model_architecture(model, f"{MODEL_DIR}/csrnet_architecture.csv")
+    save_model_architecture(model, str(MODEL_DIR / "csrnet_architecture.csv"))
 
     criterion = nn.MSELoss(reduction='sum')
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
@@ -91,11 +92,11 @@ def train_csrnet():
         # Save best model
         if mae < best_mae:
             best_mae = mae
-            torch.save(model.state_dict(), f"{MODEL_DIR}/best_csrnet.pth")
+            torch.save(model.state_dict(), str(MODEL_DIR / "best_csrnet_model.pth"))
             print("✔ Saved best model")
 
     # Save training history
-    pd.DataFrame(history).to_csv(f"{RESULT_DIR}/csrnet_training_metrics.csv", index=False)
+    pd.DataFrame(history).to_csv(str(RESULT_DIR / "csr_training_metrics.csv"), index=False)
 
     # Plot training loss
     plt.figure()
@@ -104,5 +105,5 @@ def train_csrnet():
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.grid()
-    plt.savefig(f"{RESULT_DIR}/csrnet_training_plot.png")
+    plt.savefig(str(RESULT_DIR / "csrnet_training_plot.png"))
     plt.close()

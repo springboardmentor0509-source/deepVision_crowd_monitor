@@ -10,18 +10,20 @@ import matplotlib.pyplot as plt
 
 from simple_cnn.preprocessing import SimpleCNNDataset
 from simple_cnn.model_simplecnn import SimpleCNN, save_model_architecture
+from pathlib import Path
 
+# Get project root (two levels up from this file)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+MODEL_DIR = PROJECT_ROOT / "models and code"
+RESULT_DIR = PROJECT_ROOT / "results" / "simple_cnn"
 
-MODEL_DIR = "../../models/simple_cnn"
-RESULT_DIR = "../../results/simple_cnn"
-
-os.makedirs(MODEL_DIR, exist_ok=True)
-os.makedirs(RESULT_DIR, exist_ok=True)
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+RESULT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def train_simplecnn():
 
-    DATA_ROOT = "../../dataset/ShanghaiTech"
+    DATA_ROOT = str(PROJECT_ROOT / "Dataset" / "ShanghaiTech")
 
     LR = 1e-4
     BATCH = 4
@@ -37,7 +39,7 @@ def train_simplecnn():
     model = SimpleCNN().to(DEVICE)
 
     # save architecture once
-    save_model_architecture(model, f"{MODEL_DIR}/simplecnn_architecture.txt")
+    save_model_architecture(model, str(MODEL_DIR / "simplecnn_architecture.txt"))
 
     criterion = nn.MSELoss(reduction="sum")
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
@@ -96,7 +98,7 @@ def train_simplecnn():
         if mae < best_mae:
             best_mae = mae
             best_preds, best_gts = preds, gts
-            torch.save(model.state_dict(), f"{MODEL_DIR}/best_simplecnn.pth")
+            torch.save(model.state_dict(), str(MODEL_DIR / "best_simplecnn.pth"))
             print("✔ Saved Best Model")
 
     # save metrics
@@ -106,11 +108,11 @@ def train_simplecnn():
         "Val MAE": val_mae_list
     })
 
-    metrics.to_csv(f"{RESULT_DIR}/cnn_training_metrics.csv", index=False)
+    metrics.to_csv(str(RESULT_DIR / "cnn_training_metrics.csv"), index=False)
 
     # save best prediction data
     pd.DataFrame({"GT": best_gts, "Pred": best_preds}).to_csv(
-        f"{RESULT_DIR}/cnn_predictions.csv", index=False
+        str(RESULT_DIR / "cnn_predictions.csv"), index=False
     )
 
     # Plot training curves
@@ -120,5 +122,5 @@ def train_simplecnn():
     plt.legend()
     plt.grid()
     plt.title("Training Progress")
-    plt.savefig(f"{RESULT_DIR}/cnn_training_plot.png")
+    plt.savefig(str(RESULT_DIR / "cnn_training_plot.png"))
     plt.close()

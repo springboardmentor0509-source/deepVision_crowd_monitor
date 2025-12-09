@@ -9,14 +9,16 @@ from datetime import datetime
 
 from mobile_csrnet.mobile_preprocessing import MobileCSRNetDataset
 from mobile_csrnet.mobile_csr_model import MobileNetCSRNet, save_model_architecture
+from pathlib import Path
 
+# Get project root
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+MODEL_DIR = PROJECT_ROOT / "models and code"
+RESULT_DIR = PROJECT_ROOT / "results" / "mobile_csrnet"
+DATASET_ROOT = PROJECT_ROOT / "Dataset" / "ShanghaiTech"
 
-MODEL_DIR = "../../models/mobile_csrnet"
-RESULT_DIR = "../../results/mobile_csrnet"
-DATASET_ROOT = "../../dataset/ShanghaiTech"
-
-os.makedirs(MODEL_DIR, exist_ok=True)
-os.makedirs(RESULT_DIR, exist_ok=True)
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+RESULT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def train_mobile_csrnet():
@@ -26,15 +28,15 @@ def train_mobile_csrnet():
     BATCH = 4
     EPOCHS = 30
 
-    train_ds = MobileCSRNetDataset(DATASET_ROOT, part="A", mode="train")
-    val_ds   = MobileCSRNetDataset(DATASET_ROOT, part="A", mode="test")
+    train_ds = MobileCSRNetDataset(str(DATASET_ROOT), part="A", mode="train")
+    val_ds   = MobileCSRNetDataset(str(DATASET_ROOT), part="A", mode="test")
 
     train_loader = DataLoader(train_ds, batch_size=BATCH, shuffle=True)
     val_loader   = DataLoader(val_ds, batch_size=1, shuffle=False)
 
     model = MobileNetCSRNet(load_weights=True).to(DEVICE)
 
-    save_model_architecture(model, f"{MODEL_DIR}/model_architecture.csv")
+    save_model_architecture(model, str(MODEL_DIR / "mobile_csrnet_architecture.csv"))
 
     criterion = nn.MSELoss(reduction="sum")
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
@@ -87,11 +89,11 @@ def train_mobile_csrnet():
         # Save best model
         if mae < best_mae:
             best_mae = mae
-            torch.save(model.state_dict(), f"{MODEL_DIR}/best_mobile_csrnet.pth")
+            torch.save(model.state_dict(), str(MODEL_DIR / "best_mobilenet_csrnet_model.pth"))
             print("✔ Saved best model")
 
     # Save metrics
-    pd.DataFrame(history).to_csv(f"{RESULT_DIR}/mobile_csr_training_metrics.csv", index=False)
+    pd.DataFrame(history).to_csv(str(RESULT_DIR / "mobile_csr_training_metrics.csv"), index=False)
 
     # Plot training loss
     plt.figure()
@@ -100,5 +102,5 @@ def train_mobile_csrnet():
     plt.legend()
     plt.title("Mobile CSRNet Training Curve")
     plt.grid()
-    plt.savefig(f"{RESULT_DIR}/mobile_csr_training_plot.png")
+    plt.savefig(str(RESULT_DIR / "mobile_csr_training_plot.png"))
     plt.close()

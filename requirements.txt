@@ -3,8 +3,8 @@ opencv-python
 numpy
 matplotlib
 pillow
-torch
-torchvision
+# torch
+# torchvision
 streamlit
 pandas
 joblib
