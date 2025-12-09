@@ -11,3 +11,9 @@ joblib
 scipy
 seaborn
 tqdm
+fastapi
+uvicorn
+scikit-learn
+scikit-image
+requests
+python-multipart

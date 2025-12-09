@@ -7,8 +7,10 @@ __pycache__/
 
 # Datasets & Media Files
 dataset/
+Dataset/
 crowd_video.mp4
-
+processed_data/
+processed_data/*
 # OS / Editor Files
 .DS_Store
 Thumbs.db
