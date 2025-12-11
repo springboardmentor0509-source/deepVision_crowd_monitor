@@ -5,6 +5,7 @@ matplotlib
 pillow
 torch
 torchvision
+<<<<<<< HEAD
 
 #req for eda_onDataset.py
 #numpy
@@ -27,3 +28,7 @@ streamlit
 scikit-learn
 joblib
 scikit-image
+=======
+streamlit
+pandas
+>>>>>>> 65c492d0205e5452f2683dd9d95c8cf8c9d5b6da
