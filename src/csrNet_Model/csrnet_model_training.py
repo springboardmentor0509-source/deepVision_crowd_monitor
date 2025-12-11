@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from csrNet_Model.csrnet_preprocessing import CSRNetDataset
+from csrNet_Model.csrnet_preprocessing_fast import CSRNetDatasetPreprocessed
 from csrNet_Model.csr_model import CSRNet, save_model_architecture
 from pathlib import Path
 
@@ -14,7 +14,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODEL_DIR = PROJECT_ROOT / "models and code"
 RESULT_DIR = PROJECT_ROOT / "results" / "csrnet_cnn"
-DATASET_ROOT = PROJECT_ROOT / "Dataset" / "ShanghaiTech"
+PREPROCESSED_ROOT = PROJECT_ROOT / "processed_data"
 
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 RESULT_DIR.mkdir(parents=True, exist_ok=True)
@@ -28,8 +28,9 @@ def train_csrnet():
     BATCH = 4
     EPOCHS = 20
 
-    train_ds = CSRNetDataset(str(DATASET_ROOT), part="A", mode="train")
-    val_ds   = CSRNetDataset(str(DATASET_ROOT), part="A", mode="test")
+    print(f"Using preprocessed data from: {PREPROCESSED_ROOT}")
+    train_ds = CSRNetDatasetPreprocessed(str(PREPROCESSED_ROOT), part="A", mode="train")
+    val_ds   = CSRNetDatasetPreprocessed(str(PREPROCESSED_ROOT), part="A", mode="test")
 
     train_loader = DataLoader(train_ds, batch_size=BATCH, shuffle=True)
     val_loader   = DataLoader(val_ds, batch_size=1, shuffle=False)

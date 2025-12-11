@@ -25,6 +25,20 @@ This guide explains how to run training for all models in the DeepVision Crowd M
          ...
      ```
 
+3. **⚠️ IMPORTANT: Run Preprocessing First**
+   ```powershell
+   cd preprocessing
+   python run_preprocess.py
+   cd ..
+   ```
+   
+   This creates optimized preprocessed data in `processed_data/` folder with:
+   - Pre-computed geometry-adaptive density maps
+   - Resized images (1024px)
+   - Metadata CSV files
+   
+   **Why?** Training will be **2-3x faster** and use **better quality density maps**!
+
 ## Running Training Scripts
 
 All scripts should be run from the **project root directory** (`deepVision_crowd_monitor/`).

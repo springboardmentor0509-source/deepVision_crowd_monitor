@@ -9,6 +9,7 @@ __pycache__/
 # Model weights / checkpoints
 *.pth             # e.g., best_csrnet_model.pth
 *.pt
+*.pkl
 *.joblib          # random forest or other saved models
 
 # Training outputs / logs
@@ -19,7 +20,6 @@ dataset/
 Dataset/
 crowd_video.mp4
 processed_data/
-processed_data/*
 
 # OS / Editor Files
 .DS_Store

@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from simple_cnn.preprocessing import SimpleCNNDataset
+from simple_cnn.preprocessing_fast import SimpleCNNDatasetPreprocessed
 from simple_cnn.model_simplecnn import SimpleCNN, save_model_architecture
 from pathlib import Path
 
@@ -16,6 +16,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODEL_DIR = PROJECT_ROOT / "models and code"
 RESULT_DIR = PROJECT_ROOT / "results" / "simple_cnn"
+PREPROCESSED_ROOT = PROJECT_ROOT / "processed_data"
 
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 RESULT_DIR.mkdir(parents=True, exist_ok=True)
@@ -23,15 +24,16 @@ RESULT_DIR.mkdir(parents=True, exist_ok=True)
 
 def train_simplecnn():
 
-    DATA_ROOT = str(PROJECT_ROOT / "Dataset" / "ShanghaiTech")
+    # Use preprocessed data for faster training
 
     LR = 1e-4
     BATCH = 4
     EPOCHS = 20
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-    train_ds = SimpleCNNDataset(DATA_ROOT, mode="train", part="A")
-    val_ds   = SimpleCNNDataset(DATA_ROOT, mode="test",  part="A")
+    print(f"Using preprocessed data from: {PREPROCESSED_ROOT}")
+    train_ds = SimpleCNNDatasetPreprocessed(str(PREPROCESSED_ROOT), mode="train", part="A")
+    val_ds   = SimpleCNNDatasetPreprocessed(str(PREPROCESSED_ROOT), mode="test",  part="A")
 
     train_loader = DataLoader(train_ds, batch_size=BATCH, shuffle=True)
     val_loader = DataLoader(val_ds, batch_size=1, shuffle=False)

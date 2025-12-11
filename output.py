@@ -105,44 +105,416 @@ api_url = st.session_state.api_url
 
 # -------- ABOUT --------
 if section == "About":
-    st.title("DeepVision — Crowd Monitor")
-
+    st.title("🎯 DeepVision — Crowd Monitor")
+    
+    st.markdown("---")
+    
+    # Project Overview
+    st.header("📖 Project Overview")
     st.markdown(
         """
-        **DeepVision Crowd Counting** is an experimental project for estimating
-        crowd density and counts using classical ML baselines and CNN-based models
-        such as CSRNet / SimpleCNN.
-
-        This dashboard provides:
-
-        - 📊 *Data Visualization* – plots & distributions exported from training  
-        - 📈 *Model Evaluation Results* – metrics and error analysis CSVs  
-        - ⚙️ *Live Demo* – run inference against a backend API on custom images  
+        **DeepVision Crowd Monitor** is an advanced AI-powered system for real-time crowd density estimation 
+        and counting in images and video streams. This project leverages state-of-the-art deep learning 
+        architectures and classical machine learning techniques to provide accurate crowd analysis for 
+        various applications.
+        
+        The system combines multiple approaches including:
+        - **Deep CNN Models** (CSRNet, SimpleCNN, MobileNet-CSRNet)
+        - **Classical ML** (Random Forest baseline)
+        - **Geometry-Adaptive Density Maps** for precise crowd distribution visualization
         """
     )
-
-    col1, col2 = st.columns(2)
-
+    
+    st.markdown("---")
+    
+    # Dataset Information
+    st.header("📊 Dataset: ShanghaiTech")
+    col1, col2 = st.columns([2, 1])
+    
     with col1:
-        st.subheader("Key Features")
         st.markdown(
             """
-            - Lightweight local dashboard  
-            - Pluggable backend (any model behind `/predict`)  
-            - Results folder–based, no DB setup required  
+            This project uses the **ShanghaiTech Crowd Counting Dataset**, one of the most challenging 
+            and widely-used benchmarks in crowd analysis research.
+            
+            **Dataset Specifications:**
+            - **Part A**: 482 images (300 train + 182 test)
+              - Dense crowds from the Internet
+              - Average count: ~500 people per image
+              - Resolution: Variable (avg ~768×1024)
+              
+            - **Part B**: 716 images (400 train + 316 test)
+              - Sparse crowds from metropolitan streets
+              - Average count: ~120 people per image
+              - Resolution: Variable (avg ~1024×768)
+            
+            **Ground Truth Annotations:**
+            - Manually annotated head positions
+            - Stored in `.mat` files (MATLAB format)
+            - Contains precise (x, y) coordinates for each person
             """
         )
-
+    
     with col2:
-        st.subheader("Typical Workflow")
-        st.markdown(
+        st.info(
             """
-            1. Run training / evaluation scripts  
-            2. Export metrics & plots into `results/<experiment_name>/`  
-            3. Use this UI to inspect results  
-            4. Connect backend and test inference on new images  
+            **Dataset Stats**
+            
+            📈 Total Images: 1,198
+            
+            👥 Total Annotated People: ~330,000+
+            
+            🎯 Challenge: High density variations
+            
+            🌍 Real-world scenarios
             """
         )
+    
+    st.markdown("---")
+    
+    # Use Cases
+    st.header("💡 Use Cases & Applications")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown(
+            """
+            ### 🏛️ Public Safety
+            - Event management
+            - Emergency evacuation
+            - Crowd flow monitoring
+            - Overcrowding prevention
+            """
+        )
+    
+    with col2:
+        st.markdown(
+            """
+            ### 🏙️ Smart Cities
+            - Traffic management
+            - Public transport optimization
+            - Urban planning insights
+            - Pedestrian flow analysis
+            """
+        )
+    
+    with col3:
+        st.markdown(
+            """
+            ### 🏢 Business Intelligence
+            - Retail foot traffic analysis
+            - Queue management
+            - Customer behavior insights
+            - Peak hour detection
+            """
+        )
+    
+    st.markdown("---")
+    
+    # System Architecture
+    st.header("⚙️ System Architecture & Workflow")
+    
+    st.markdown(
+        """
+        ### 🔄 Complete Pipeline
+        
+        **1. Data Preprocessing** 📥
+        - Load raw images and ground truth annotations
+        - Generate geometry-adaptive density maps using k-NN
+        - Resize images to consistent dimensions (1024px)
+        - Create metadata CSV files for efficient loading
+        - Store preprocessed data for faster training
+        
+        **2. Model Training** 🧠
+        
+        **Available Models:**
+        """
+    )
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown(
+            """
+            **Deep Learning Models:**
+            - **SimpleCNN**: Lightweight encoder-decoder
+              - 3-layer encoder with max pooling
+              - 3-layer decoder with convolutions
+              - ~2M parameters
+              
+            - **CSRNet**: VGG16-based architecture
+              - Pre-trained VGG16 frontend
+              - Dilated convolution backend
+              - ~16M parameters
+              
+            - **MobileNet-CSRNet**: Efficient variant
+              - MobileNetV2 frontend
+              - Dilated backend
+              - ~3M parameters
+            """
+        )
+    
+    with col2:
+        st.markdown(
+            """
+            **Classical ML:**
+            - **Random Forest Baseline**
+              - Feature extraction: HOG, LBP, ORB
+              - Edge density analysis
+              - Brightness statistics
+              - 200 trees, depth 20
+            
+            **Training Configuration:**
+            - Loss: MSE (Mean Squared Error)
+            - Optimizer: Adam
+            - Learning Rate: 1e-4 (CNN), 1e-5 (CSRNet)
+            - Batch Size: 4
+            - Epochs: 20-30
+            """
+        )
+    
+    st.markdown(
+        """
+        **3. Evaluation** 📊
+        - Calculate MAE (Mean Absolute Error)
+        - Calculate RMSE (Root Mean Squared Error)
+        - Generate prediction vs ground truth plots
+        - Create error distribution histograms
+        - Save metrics to CSV files
+        
+        **4. Deployment** 🚀
+        - FastAPI backend for model serving
+        - Streamlit dashboard for visualization
+        - REST API for inference
+        - Real-time density map generation
+        - Heatmap overlay visualization
+        """
+    )
+    
+    st.markdown("---")
+    
+    # Technical Details
+    st.header("🔧 Technical Implementation")
+    
+    tab1, tab2, tab3 = st.tabs(["Preprocessing", "Training", "Inference"])
+    
+    with tab1:
+        st.markdown(
+            """
+            ### Data Preprocessing Pipeline
+            
+            **Step 1: Load Raw Data**
+            ```
+            Dataset/ShanghaiTech/
+              ├── part_A/
+              │   ├── train_data/
+              │   │   ├── images/
+              │   │   └── ground-truth/ (*.mat files)
+              │   └── test_data/
+              └── part_B/
+            ```
+            
+            **Step 2: Generate Density Maps**
+            - Parse MATLAB `.mat` files to extract (x, y) coordinates
+            - Apply **Geometry-Adaptive Kernel** (k-NN based σ)
+            - Generate Gaussian kernels at each head position
+            - Adaptive sigma based on k-nearest neighbors
+            - Formula: `σ = 0.3 × avg_k_nearest_distance`
+            
+            **Step 3: Store Preprocessed Data**
+            ```
+            processed_data/
+              ├── part_A/
+              │   ├── train_data/
+              │   │   ├── density/ (*.npy files)
+              │   │   ├── images_resized/
+              │   │   └── metadata.csv
+              │   └── test_data/
+              └── part_B/
+            ```
+            
+            **Benefits:**
+            - ✅ 2-3x faster training
+            - ✅ Better quality density maps
+            - ✅ Consistent preprocessing
+            """
+        )
+    
+    with tab2:
+        st.markdown(
+            """
+            ### Model Training Process
+            
+            **Training Loop:**
+            1. Load batch of preprocessed images + density maps
+            2. Forward pass through network
+            3. Calculate MSE loss between predicted and ground truth density
+            4. Backpropagation and parameter update
+            5. Validate on test set every epoch
+            6. Save best model based on MAE
+            
+            **Metrics Tracked:**
+            - Training Loss (per epoch)
+            - Validation MAE (Mean Absolute Error)
+            - Validation RMSE (Root Mean Squared Error)
+            - Best model checkpoint
+            
+            **Output Files:**
+            ```
+            results/[model_name]/
+              ├── training_metrics.csv
+              ├── predictions.csv
+              └── training_plot.png
+            
+            models and code/
+              └── best_[model_name].pth
+            ```
+            
+            **Command to Train:**
+            ```bash
+            python run_simple_cnn.py
+            python run_csrnet.py
+            python run_mobile_csrnet.py
+            python run_random_forest.py
+            ```
+            """
+        )
+    
+    with tab3:
+        st.markdown(
+            """
+            ### Inference Pipeline
+            
+            **Backend API (FastAPI):**
+            - Endpoint: `POST /predict/{model_name}`
+            - Input: Image file (JPG/PNG)
+            - Output: JSON with count + density map
+            
+            **Processing Steps:**
+            1. Receive uploaded image
+            2. Preprocess: resize + normalize
+            3. Forward pass through model
+            4. Generate density map prediction
+            5. Calculate total count (sum of density)
+            6. Create heatmap overlay
+            7. Return JSON response
+            
+            **Response Format:**
+            ```json
+            {
+              "model": "CSRNet",
+              "filename": "crowd.jpg",
+              "predicted_count": 342,
+              "density_map": [[...], ...],
+              "heatmap_image": "hex_encoded_jpg"
+            }
+            ```
+            
+            **Frontend Dashboard:**
+            - Upload image via Streamlit interface
+            - Select model from dropdown
+            - Display predicted count
+            - Show density heatmap overlay
+            - View detailed metrics
+            """
+        )
+    
+    st.markdown("---")
+    
+    # Dashboard Features
+    st.header("🎨 Dashboard Features")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Data Visualization")
+        st.markdown(
+            """
+            - 📊 View training loss curves
+            - 📈 Explore validation metrics over epochs
+            - 🖼️ Browse generated plots and charts
+            - 📁 Organized by experiment folders
+            - 🔍 Filter by image type (.png, .jpg)
+            """
+        )
+        
+        st.subheader("Model Evaluation")
+        st.markdown(
+            """
+            - 📋 View metrics CSV files
+            - 📉 Analyze error distributions
+            - 🎯 Compare model performance
+            - 💾 Download results
+            - 📊 Interactive data tables
+            """
+        )
+    
+    with col2:
+        st.subheader("Live Demo")
+        st.markdown(
+            """
+            - 🖼️ Upload custom images
+            - 🤖 Select AI model
+            - ⚡ Real-time inference
+            - 🔥 Density heatmap visualization
+            - 📊 Detailed prediction metrics
+            """
+        )
+        
+        st.subheader("Backend API")
+        st.markdown(
+            """
+            - 🚀 FastAPI REST endpoints
+            - 🔌 Easy integration
+            - 📡 HTTP requests
+            - 🔄 Model hot-swapping
+            - 📈 Scalable architecture
+            """
+        )
+    
+    st.markdown("---")
+    
+    # Quick Start
+    st.header("🚀 Quick Start Guide")
+    
+    st.markdown(
+        """
+        ### Prerequisites
+        ```bash
+        pip install -r requirements.txt
+        ```
+        
+        ### Run Preprocessing (One-time)
+        ```bash
+        cd preprocessing
+        python run_preprocess.py
+        cd ..
+        ```
+        
+        ### Start Backend Server
+        ```bash
+        python start_backend.py
+        ```
+        *Backend will run on http://localhost:8000*
+        
+        ### Start Dashboard
+        ```bash
+        streamlit run output.py
+        ```
+        *Dashboard will open in your browser*
+        
+        ### Train Models (Optional)
+        ```bash
+        python run_simple_cnn.py      # Fast training (~30 min)
+        python run_csrnet.py          # Medium (~1-2 hours)
+        python run_mobile_csrnet.py   # Longer (~2-3 hours)
+        ```
+        """
+    )
+    
+    st.markdown("---")
+    st.caption("DeepVision Crowd Monitor © 2025 | Built with PyTorch, Streamlit & FastAPI")
 
 
 # -------- DATA VISUALIZATION --------
