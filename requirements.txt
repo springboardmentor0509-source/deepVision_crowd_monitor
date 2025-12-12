@@ -18,3 +18,12 @@ tqdm
 #torch
 #torchvision
 torchaudio
+
+# Backend & Frontend requirements
+fastapi
+uvicorn
+python-multipart
+streamlit
+scikit-learn
+joblib
+scikit-image
