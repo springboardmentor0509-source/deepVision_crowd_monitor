@@ -55,7 +55,7 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
         └─────────────┬──────────┘
                       ↓
            ┌────────────────────┐
-           │  Frame Extraction   │
+           │  Frame Extraction  │
            └────────────┬───────┘
                       ↓
            ┌────────────────────┐
@@ -63,10 +63,10 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
            │ (Resize, Normalize)│
            └────────────┬───────┘
                       ↓
-         ┌───────────────────────────┐
-         │    Deep Learning Model    │
-         │  CSRNet / MCNN / SimpleCNN│
-         └──────────────┬────────────┘
+         ┌──────────────────────────────────────────┐
+         │    Deep Learning Model                   │ 
+         │  CSRNet / MCNN / SimpleCNN /RandomForest │
+         └──────────────┬───────────────────────────┘  
                        ↓
        ┌─────────────────────────────────┐
        │ Density Map + Crowd Count Logic │
@@ -75,7 +75,7 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
     ┌──────────────────────────────┐
     │  Overcrowding Detection      │
     │ (Dynamic threshold alerts)   │
-    └───────────────┬─────────────┘
+    └───────────────┬──────────────┘
                     ↓
      ┌────────────────────────────────┐
      │  Streamlit Dashboard + Alerts  │
@@ -155,19 +155,25 @@ Ground-truth consists of head annotations `(x, y)` → converted into Gaussian d
 
 ## 🧪 How to Run the Project
 
-### **1. Clone the Repository**
+## **1. Create a Virtual Environment
+```
+python -m venv venv
+venv\Scripts\activate
+```
+
+### **2. Clone the Repository**
 ```
 git clone https://github.com/sehaj_kaur/DeepVision-Crowd-Monitor.git
 cd DeepVision-Crowd-Monitor
 ```
 
-### **2. Install Dependencies**
+### **3. Install Dependencies**
 ```
 pip install -r requirements.txt
 ```
 
 
-### **3.Setup Dataset**
+### **4.Setup Dataset**
 ```
 dataset/
  └── ShanghaiTech/
@@ -176,13 +182,14 @@ dataset/
 ```
 
 
-### **4. Run Backend**
+### **5. Run Backend**
 ```
 uvicorn backend.main:app --reload --port 8000
 ```
 
-### **5. Launch Dashboard**
+### **6. Launch Dashboard**
 ```
+cd frontend
 streamlit run app.py
 ```
 ---
