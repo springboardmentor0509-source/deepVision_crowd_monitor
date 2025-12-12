@@ -165,86 +165,275 @@ def display_file_preview(path: Path):
         st.write(f"No preview available for {path.name} (type: {s})")
 
 # ---------------- ABOUT ----------------
+# ---------------------- ABOUT PAGE ----------------------
 if section == "About":
-    st.markdown(
-        """
-        <div style="padding:28px;border-radius:14px;background:linear-gradient(135deg,#0b2a4a,#12213d);color:white">
-          <h1 style="margin:0 0 6px 0">👁️ DeepVision — Intelligent Crowd Analytics Platform</h1>
-          <p style="margin:0;font-size:15px;opacity:0.95">
-            Research-grade system for crowd counting, density estimation, visual analytics and real-time safety assessment.
-          </p>
+    # ------------------ HERO SECTION ------------------
+    st.markdown("""
+        <div style="
+            padding: 30px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #0a0f24, #1b2853);
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+        ">
+            <h1 style="margin-bottom:10px;">👁️ DeepVision – Intelligent Crowd Analytics Platform</h1>
+            <p style="font-size:18px;">
+                A complete, research-grade system for crowd counting, density estimation, 
+                visual analytics and real-time safety assessment.
+            </p>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """, unsafe_allow_html=True)
 
+    # ------------------ PROJECT OVERVIEW ------------------
     st.header("📘 Project Overview")
-    st.markdown(
-        """
-        **DeepVision** is an end-to-end platform for:
-        - Accurate crowd counting using deep learning and classical baselines  
-        - Density map generation and heatmap overlays for spatial analysis  
-        - Visual analytics and model evaluation tooling for research & deployment
-        """
-    )
+    st.markdown("""
+        **DeepVision** is a unified platform designed to:
+        - Accurately **estimate crowd counts** using deep neural networks  
+        - Generate **density maps** for fine-grained spatial understanding  
+        - Visualize **model performance**, training curves and evaluation metrics  
+        - Provide **real-time crowd safety monitoring** and alert recommendations  
+
+        The system integrates multiple model families, including CSRNet-based CNNs, MobileNet-based lightweight variants, 
+        and a Random Forest classical baseline to enable flexible benchmarking and experimentation.
+    """)
 
     st.markdown("---")
+
+    # ------------------ KEY PROJECT STATS ------------------
     col1, col2, col3 = st.columns(3)
     col1.metric("Supported Models", "4", "+CSRNet +MobileNetCSRNet +SimpleCNN +RF")
-    col2.metric("Dataset Scale", "1,198 images", "~330k annotated heads")
-    col3.metric("Outputs", "Count + Density + Heatmap", "Real-time inference")
+    col2.metric("Dataset Scale", "1,198 Images", "~330k Annotated People")
+    col3.metric("Outputs", "Count + Density + Heatmap", "Real-time Inference")
 
     st.markdown("---")
-    st.header("📊 Dataset — ShanghaiTech (used)")
-    st.markdown(
-        """
-        **Part A (dense)** — 482 images (300 train / 182 test). Avg ≈ 500 people/image.  
-        **Part B (sparse)** — 716 images (400 train / 316 test). Avg ≈ 120 people/image.  
-        Ground truth is stored as (x, y) head coordinates in MATLAB `.mat` files and used to produce geometry-adaptive density maps.
-        """
-    )
+
+    # ------------------ DATASET SECTION ------------------
+    st.header("📊 Dataset — ShanghaiTech Benchmark")
+    left, right = st.columns([2, 1])
+
+    with left:
+        st.markdown("""
+            The platform is built around the **ShanghaiTech Crowd Counting Dataset**,  
+            one of the most well-known and challenging datasets for dense crowd analysis.
+
+            ### **Dataset Highlights**
+            #### **Part A (High-Density Scenes)**
+            - 482 images (300 training, 182 testing)  
+            - Extremely dense crowds from Internet sources  
+            - Average ~500 heads per image  
+            - High annotation complexity  
+
+            #### **Part B (Outdoor Street Scenes)**
+            - 716 images (400 training, 316 testing)  
+            - Moderately sparse crowds from real metropolitan locations  
+            - Average ~120 heads per image  
+            - More natural lighting conditions  
+
+            #### **Ground-Truth**
+            - Each person annotated with an exact **(x, y) head coordinate**  
+            - Annotations stored in **MATLAB `.mat` files**  
+            - Used to build geometry-adaptive density maps  
+        """)
+
+    with right:
+        st.info("""
+        **Dataset Summary**
+        - Total Images: **1,198**  
+        - Total Annotations: **~330,000**  
+        - Density Variation: **Very High**  
+        - Scene Complexity: **Indoor, Outdoor, Events, Streets**
+        """)
 
     st.markdown("---")
-    st.header("🔄 Complete Pipeline (high level)")
-    st.markdown(
-        """
-        **1. Preprocessing:** parse `.mat`, build density maps (kNN-based sigma), resize and create metadata CSV.  
-        **2. Training:** train CNN models (CSRNet / MobileNet variant / SimpleCNN) and a RandomForest baseline.  
-        **3. Evaluation:** MAE/RMSE, prediction vs GT plots, error histograms.  
-        **4. Deployment:** FastAPI backend with `POST /predict/{model_name}` returning count + density + heatmap.
-        """
-    )
+
+    # ------------------ COMPLETE PIPELINE ------------------
+    st.header("🔄 Complete Processing Pipeline")
+
+    st.subheader("1️⃣ Data Preprocessing")
+    st.markdown("""
+        - Load raw images + `.mat` annotation files  
+        - Extract head coordinates  
+        - Compute **k-Nearest Neighbor adaptive sigma** per head  
+        - Generate density maps using Gaussian kernels  
+        - Resize images to standardized dimensions  
+        - Store processed arrays + metadata CSVs  
+    """)
+
+    st.subheader("2️⃣ Model Training")
+    st.markdown("""
+        **Deep CNN Models:**
+        - CSRNet (VGG-based, dilated convolutions)  
+        - MobileNet-CSRNet (lightweight, fast)  
+        - SimpleCNN (encoder–decoder baseline)  
+
+        **Classical ML Baseline:**
+        - Random Forest Regressor with handcrafted features  
+
+        **Training Settings**
+        - Loss: **Mean Squared Error (MSE)**  
+        - Optimizer: **Adam**  
+        - Batch Size: 4  
+        - Epochs: 20–30  
+        - Validation using MAE & RMSE  
+    """)
+
+    st.subheader("3️⃣ Evaluation & Result Generation")
+    st.markdown("""
+        For each model, the system computes:
+        - **MAE / RMSE** metrics  
+        - **Training curves** (loss vs epochs)  
+        - **Prediction vs Ground Truth** comparisons  
+        - **Error histograms**  
+        - **Evaluation CSV files** + plots  
+    """)
+
+    st.subheader("4️⃣ Deployment Pipeline")
+    st.markdown("""
+        - Backend: **FastAPI-based inference server**  
+        - Frontend: **Streamlit dashboard**  
+        - Endpoint format:  
+          `POST /predict/{model_name}`  
+        - Outputs returned:
+          - Predicted crowd **count**
+          - **Density map** array (optional)
+          - **Heatmap overlay** (hex-encoded PNG)
+    """)
 
     st.markdown("---")
-    st.header("🧠 Technical Implementation (short)")
-    st.markdown(
-        """
-        - Loss: MSE. Optimizer: Adam. Useful metrics: MAE, RMSE.  
-        - Density maps computed by summing adaptive Gaussians per annotated head.  
-        - Heatmaps returned as hex-encoded PNG bytes in the API response for frontend display.
-        """
-    )
+
+    # ------------------ TECHNICAL IMPLEMENTATION ------------------
+    st.header("🧠 Technical Implementation Details")
+
+    t1, t2, t3 = st.tabs(["Preprocessing", "Model Architecture", "Inference"])
+
+    with t1:
+        st.markdown("""
+            ### **Preprocessing Workflow**
+            - Parse `.mat` files  
+            - Calculate geometry-adaptive Gaussian kernels  
+            - Generate pixel-accurate density maps  
+            - Store processed data under directory structure:
+            ```text
+            processed_data/
+                ├─ part_A/
+                │   ├─ images_resized/
+                │   ├─ density/
+                │   └─ metadata.csv
+                └─ part_B/
+            ```
+        """)
+
+    with t2:
+        st.markdown("""
+            ### **Model Overview**
+            **CSRNet**
+            - VGG-16 frontend  
+            - Dilated convolution backend  
+            - Highly accurate for dense crowds  
+
+            **MobileNet-CSRNet**
+            - Lightweight MobileNetV2 backbone  
+            - Suitable for real-time scenarios  
+
+            **SimpleCNN**
+            - Small encoder-decoder  
+            - Good baseline for comparison  
+
+            **Random Forest**
+            - Uses texture features (HOG/LBP/Edges)  
+            - Interpretable classical model  
+        """)
+
+    with t3:
+        st.markdown("""
+            ### **Inference Flow**
+            1. Upload image → backend  
+            2. Resize + normalize  
+            3. Forward pass through selected model  
+            4. Sum density map for final count  
+            5. Generate heatmap overlay  
+            6. Return JSON response  
+
+            ### **Response Format**
+            ```json
+            {
+              "model": "CSRNet",
+              "predicted_count": 346,
+              "density_map": [[...]],
+              "heatmap_image": "hex_encoded_png"
+            }
+            ```
+        """)
 
     st.markdown("---")
-    st.header("🚀 Quick Start")
-    st.markdown(
-        """
+
+    # ------------------ APPLICATIONS / USE CASES ------------------
+    st.header("💡 Applications & Use Cases")
+
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("""
+            ### 🏟️ Event Management
+            - Concerts, festivals, stadiums  
+            - Monitor crowd flow  
+            - Prevent overcrowding  
+        """)
+    with c2:
+        st.markdown("""
+            ### 🚇 Smart Cities
+            - Public transport load estimation  
+            - Pedestrian traffic patterns  
+            - Road safety planning  
+        """)
+    with c3:
+        st.markdown("""
+            ### 🛍️ Retail & Business
+            - Store footfall analytics  
+            - Customer flow heatmaps  
+            - Queue management  
+        """)
+
+    st.markdown("---")
+
+    # ------------------ QUICK START GUIDE ------------------
+    st.header("🚀 Quick Start Guide")
+
+    st.markdown("""
+        ### Install Required Packages
         ```bash
         pip install -r requirements.txt
-        python preprocess_data.py
-        uvicorn backend:app --reload   # start API
-        streamlit run app.py           # start dashboard
         ```
-        """
-    )
+
+        ### Preprocess Dataset
+        ```bash
+        python preprocess_data.py
+        ```
+
+        ### Train Models
+        ```bash
+        python train_csrnet.py
+        python train_mobilecsrnet.py
+        python train_simplecnn.py
+        python train_randomforest.py
+        ```
+
+        ### Start Backend Server
+        ```bash
+        uvicorn backend:app --reload
+        ```
+
+        ### Start Dashboard
+        ```bash
+        streamlit run app.py
+        ```
+    """)
 
     st.markdown("---")
-    st.subheader("💡 Use cases")
-    st.write("""
-     - Public safety & event monitoring  
-     - Smart city planning & transportation analytics  
-     - Retail footfall & queue analysis
-    """)
+
+    # ------------------ SESSION NOTES ------------------
+    st.subheader("📝 Personal Notes (saved for this session only)")
+    st.text_area("Write your notes here:", key="notes_area", height=140)
 
 # ---------------- DATA VISUALIZATION ----------------
 elif section == "Data Visualization":

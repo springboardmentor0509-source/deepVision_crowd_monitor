@@ -85,24 +85,27 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
 
 ## 🏗️ Tech Stack
 
-### **Deep Learning**
-- CSRNet or MCNN  
-- PyTorch  
+### **Deep Learning & ML**
+- PyTorch 2.5.1 with CUDA 12.1
+- CSRNet (VGG16-based encoder-decoder)
+- MobileNetCSRNet (Lightweight variant)
+- SimpleCNN (Custom architecture)
+- RandomForest (Classical ML baseline)
 
-### **Computer Vision**
-- OpenCV  
-- NumPy  
-- Pillow  
+### **Backend & API**
+- FastAPI (Model serving)
+- Uvicorn (ASGI server)
 
-### **Visualization & Alerts**
-- Matplotlib / Plotly  
-- Flask or Streamlit  
-- SMTP / Twilio API  
+### **Frontend & Visualization**
+- Streamlit (Interactive dashboard)
+- Matplotlib & Seaborn (Plotting)
+- Pandas (Data handling)
+- Pillow (Image processing)
 
-### **Deployment**
-- Docker  
-- Nginx (optional)  
-- GPU acceleration (CUDA)  
+### **Data Processing**
+- NumPy & SciPy
+- OpenCV (Image operations)
+- H5py (Dataset storage)
 
 ---
 
@@ -153,18 +156,53 @@ Ground-truth consists of head annotations `(x, y)` → converted into Gaussian d
 
 ---
 
+## 🤖 Implemented Models
+
+### **1. CSRNet (Congested Scene Recognition Network)**
+- **Architecture**: VGG16 frontend + dilated convolution backend
+- **Parameters**: ~16M
+- **Performance**: MAE: 109.41, RMSE: 149.92
+- **Best Use**: High-accuracy scenarios, acceptable inference time
+
+### **2. MobileNetCSRNet**
+- **Architecture**: MobileNetV2 frontend + CSRNet backend
+- **Parameters**: ~3M (5x smaller than CSRNet)
+- **Performance**: Balanced accuracy and speed
+- **Best Use**: Resource-constrained environments, mobile deployment
+
+### **3. SimpleCNN**
+- **Architecture**: Custom lightweight encoder-decoder
+- **Parameters**: ~2M
+- **Performance**: Fast inference with reasonable accuracy
+- **Best Use**: Real-time applications, edge devices
+
+### **4. RandomForest Baseline**
+- **Type**: Classical ML approach
+- **Features**: Hand-crafted image features
+- **Best Use**: Baseline comparison, interpretable predictions
+
+---
+
 ## 🧪 How to Run the Project
 
-## **1. Create a Virtual Environment
+### **1. Clone the Repository**
+```
+git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
+cd deepVision_crowd_monitor
+```
+
+## **2. Create a Virtual Environment**
+### **Windows (CMD / PowerShell)**
 ```
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### **2. Clone the Repository**
+### **Windows (CMD / PowerShell)**
 ```
-git clone https://github.com/sehaj_kaur/DeepVision-Crowd-Monitor.git
-cd DeepVision-Crowd-Monitor
+python3 -m venv venv
+source venv/bin/activate
+
 ```
 
 ### **3. Install Dependencies**
@@ -174,6 +212,7 @@ pip install -r requirements.txt
 
 
 ### **4.Setup Dataset**
+Download the ShanghaiTech dataset and place it in `Dataset/ShanghaiTech/`
 ```
 dataset/
  └── ShanghaiTech/
@@ -181,18 +220,40 @@ dataset/
       └── part_B/
 ```
 
+### **5. Preprocess Data** (Optional - if training from scratch)
+```
+python preprocessing/run_preprocess.py
+```
 
-### **5. Run Backend**
+### **6. Train Models** (Optional - pre-trained models available)
+```
+# CSRNet
+python run_csrnet.py
+
+# MobileNetCSRNet
+python run_mobile_csrnet.py
+
+# SimpleCNN
+python run_simple_cnn.py
+
+# RandomForest
+python run_random_forest.py
+```
+
+### **7. Run Backend**
 ```
 uvicorn backend.main:app --reload --port 8000
+# Backend runs on http://localhost:8000
 ```
 
-### **6. Launch Dashboard**
+### **8. Launch Dashboard**
 ```
 cd frontend
 streamlit run app.py
+# Dashboard opens at http://localhost:8501
 ```
 ---
+
 
 ## 🖥️ Dashboard Preview
 Features:
@@ -207,6 +268,37 @@ Model comparison
 
 Clean UI/UX with modern design
 
+## 📸 Project Screenshots
+
+### Dashboard Overview
+![About Section](![alt text](image.png))
+*A complete, research-grade system for crowd counting, density estimation, visual analytics and real-time safety assessment.*
+
+---
+
+### 📊 Data Visualization & Analysis
+![Data Visulaization](![alt text](image-1.png))
+*Explore plots, charts and images produced during preprocessing, training and evaluation.*
+
+![Data Visulaization](![alt text](image-2.png))
+
+
+![Model evaluation](![alt text](image-3.png))
+
+---
+
+### ⭐ Model Evaluation Results
+![Model evaluation](![alt text](image-3.png))
+*Best model performance metrics displayed in an intuitive dashboard format.*
+
+### Live Demo
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+
+---
+
+
 ## 🛡️ Use Cases
 
 - Crowd safety monitoring  
@@ -219,10 +311,13 @@ Clean UI/UX with modern design
 
 ## 🔮 Future Enhancements
 
-- Multi-camera fusion  
-- Predictive crowd analytics  
-- IoT/Edge deployment  
-- Model compression  
+
+- **Video Stream Processing**: Real-time analysis of live camera feeds
+- **Multi-camera Fusion**: Aggregate data from multiple cameras for comprehensive monitoring
+- **Predictive Analytics**: Forecast crowd density patterns based on historical data
+- **Mobile App**: iOS/Android app for on-the-go monitoring
+- **IoT Integration**: Connect with smart sensors and emergency systems
+- **Cloud Deployment**: AWS/Azure/GCP scalable infrastructure
 
 ---
 
