@@ -191,14 +191,14 @@ git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monit
 cd deepVision_crowd_monitor
 ```
 
-## **2. Create a Virtual Environment**
+### **2. Create a Virtual Environment**
 ### **Windows (CMD / PowerShell)**
 ```
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### **Windows (CMD / PowerShell)**
+### **Mac/ Linux**
 ```
 python3 -m venv venv
 source venv/bin/activate
@@ -254,48 +254,30 @@ streamlit run app.py
 ```
 ---
 
-
-## 🖥️ Dashboard Preview
-Features:
-
-Upload images → get instant crowd estimate
-
-Heatmap & density map visualization
-
-Inference history
-
-Model comparison
-
-Clean UI/UX with modern design
-
 ## 📸 Project Screenshots
 
 ### Dashboard Overview
-![About Section](![alt text](image.png))
+![About Section](image.png)
 *A complete, research-grade system for crowd counting, density estimation, visual analytics and real-time safety assessment.*
 
 ---
 
 ### 📊 Data Visualization & Analysis
-![Data Visulaization](![alt text](image-1.png))
+![Data Visulaization](image-1.png)
 *Explore plots, charts and images produced during preprocessing, training and evaluation.*
 
-![Data Visulaization](![alt text](image-2.png))
-
-
-![Model evaluation](![alt text](image-3.png))
-
+![Data Visulaization](image-2.png)
 ---
 
 ### ⭐ Model Evaluation Results
-![Model evaluation](![alt text](image-3.png))
+![Model evaluation](image-3.png)
 *Best model performance metrics displayed in an intuitive dashboard format.*
 
 ### Live Demo
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-
+![Upload File](image-7.png)
+![Reult/Heatmap](image-8.png)
+![Density Map](image-9.png)
+![Inference History](image-10.png)
 ---
 
 
