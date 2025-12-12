@@ -1,31 +1,70 @@
-# 🧠🔍 DeepVision Crowd Monitor  
-### **AI for Real-Time Crowd Density Estimation & Overcrowding Detection**
+🧠🔍 DeepVision Crowd Monitor
+AI System for Real-Time Crowd Density Estimation, Overcrowding Detection & Visual Analytics
 
-DeepVision Crowd Monitor is an AI-powered system designed to estimate crowd density and detect overcrowded zones **in real time** using live surveillance video feeds.  
-This project enhances **public safety**, supports **emergency response**, and enables **smart crowd management** in high-footfall environments such as:
+DeepVision Crowd Monitor is an end-to-end AI platform designed to estimate crowd density, detect overcrowded regions, and visualize density maps using deep learning models and live video analysis.
 
-- Railway & metro stations  
-- Airports  
-- Public events and festivals  
-- Religious gatherings  
-- Stadiums  
-- Smart city surveillance systems  
+Built for real-world safety applications such as:
 
-Using deep learning (CSRNet/MCNN) and computer vision, the system generates accurate density maps and triggers alerts when crowd limits are exceeded.
+🚉 Railway & Metro Stations
 
----
+✈️ Airports
 
-## 🚀 Key Features
+🕌 Religious Gatherings
 
-- Real-time video processing  
-- Deep-learning-based crowd density estimation  
-- Heatmap generation with density overlays  
-- Automatic overcrowding alerts  
-- Interactive monitoring dashboard (Flask/Streamlit)  
-- GPU-accelerated inference with CUDA  
-- Dockerized deployment  
+🎉 Festivals & Public Events
 
----
+🏟 Stadiums
+
+🏙 Smart City Surveillance
+
+The system uses deep learning, computer vision, statistical analysis, and an interactive dashboard to enable intelligent crowd monitoring.
+
+🚀 Key Features
+🔹 Real-Time Processing
+
+Crowd density estimation on image/video frames
+
+Fast inference using FastAPI backend
+
+Live visualization in Streamlit dashboard
+
+🔹 Multiple ML/DL Models Supported
+Model	Description
+CSRNet	High-accuracy crowd counting using dilated CNN
+MobileCSRNet	Faster, lightweight variant optimized for realtime
+SimpleCNN	Beginner-friendly baseline CNN
+Random Forest	Classical ML model used as non-DL baseline
+🔹 Interactive Dashboard (Streamlit)
+
+📊 EDA Viewer
+
+🧪 Model Evaluation Viewer
+
+🖼 Prediction Samples
+
+🎛 Live Demo
+
+📚 About Page
+
+🔹 Automated EDA
+
+Histograms
+
+Heatmaps
+
+Summary stats
+
+Auto-generated visualization outputs
+
+🔹 Model Evaluation
+
+Loss curves
+
+Validation predictions
+
+MAE/MSE/RMSE statistics
+
+CSV-based metric outputs
 
 ## 🧱 Architecture Overview
 
