@@ -106,7 +106,7 @@ api_url = st.session_state.api_url
 
 # -------- ABOUT --------
 if section == "About":
-    st.title("🎯 DeepVision — Crowd Monitor")
+    st.title("DeepVision — Crowd Monitor")
     
     st.markdown("---")
     
