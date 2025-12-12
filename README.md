@@ -1,26 +1,26 @@
-🧠🔍 DeepVision Crowd Monitor
+DeepVision Crowd Monitor
 AI System for Real-Time Crowd Density Estimation, Overcrowding Detection & Visual Analytics
 
 DeepVision Crowd Monitor is an end-to-end AI platform designed to estimate crowd density, detect overcrowded regions, and visualize density maps using deep learning models and live video analysis.
 
 Built for real-world safety applications such as:
 
-🚉 Railway & Metro Stations
+Railway & Metro Stations
 
-✈️ Airports
+Airports
 
-🕌 Religious Gatherings
+Religious Gatherings
 
-🎉 Festivals & Public Events
+Festivals & Public Events
 
-🏟 Stadiums
+Stadiums
 
-🏙 Smart City Surveillance
+Smart City Surveillance
 
 The system uses deep learning, computer vision, statistical analysis, and an interactive dashboard to enable intelligent crowd monitoring.
 
-🚀 Key Features
-🔹 Real-Time Processing
+Key Features
+Real-Time Processing
 
 Crowd density estimation on image/video frames
 
@@ -28,43 +28,28 @@ Fast inference using FastAPI backend
 
 Live visualization in Streamlit dashboard
 
-🔹 Multiple ML/DL Models Supported
+Multiple ML/DL Models Supported
+
 Model	Description
 CSRNet	High-accuracy crowd counting using dilated CNN
 MobileCSRNet	Faster, lightweight variant optimized for realtime
 SimpleCNN	Beginner-friendly baseline CNN
 Random Forest	Classical ML model used as non-DL baseline
-🔹 Interactive Dashboard (Streamlit)
+Interactive Dashboard (Streamlit)
 
-📊 EDA Viewer
+EDA Viewer
 
-🧪 Model Evaluation Viewer
+Model Evaluation Viewer
 
-🖼 Prediction Samples
+Prediction Samples
 
-🎛 Live Demo
+Live Demo
 
-📚 About Page
+About Page
 
-🔹 Automated EDA
+Automated EDA: Histograms, Heatmaps, Summary stats
 
-Histograms
-
-Heatmaps
-
-Summary stats
-
-Auto-generated visualization outputs
-
-🔹 Model Evaluation
-
-Loss curves
-
-Validation predictions
-
-MAE/MSE/RMSE statistics
-
-CSV-based metric outputs
+Model Evaluation: Loss curves, Validation predictions, MAE/MSE/RMSE statistics
 
 ## 🧱 Architecture Overview
 
