@@ -257,27 +257,27 @@ streamlit run app.py
 ## 📸 Project Screenshots
 
 ### Dashboard Overview
-![About Section](image.png)
+![About Section](Screenshots/image.png)
 *A complete, research-grade system for crowd counting, density estimation, visual analytics and real-time safety assessment.*
 
 ---
 
 ### 📊 Data Visualization & Analysis
-![Data Visulaization](image-1.png)
+![Data Visulaization](Screenshots/image-1.png)
 *Explore plots, charts and images produced during preprocessing, training and evaluation.*
 
-![Data Visulaization](image-2.png)
+![Data Visulaization](Screenshots/image-2.png)
 ---
 
 ### ⭐ Model Evaluation Results
-![Model evaluation](image-3.png)
+![Model evaluation](Screenshots/image-3.png)
 *Best model performance metrics displayed in an intuitive dashboard format.*
 
 ### Live Demo
-![Upload File](image-7.png)
-![Reult/Heatmap](image-8.png)
-![Density Map](image-9.png)
-![Inference History](image-10.png)
+![Upload File](Screenshots/image-7.png)
+![Reult/Heatmap](Screenshots/image-8.png)
+![Density Map](Screenshots/image-9.png)
+![Inference History](Screenshots/image-10.png)
 ---
 
 
