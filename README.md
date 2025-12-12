@@ -15,17 +15,33 @@ Using deep learning (CSRNet/MCNN) and computer vision, the system generates accu
 
 ---
 
-## 🚀 Key Features
+## 🚀 Features
 
-- Real-time video processing  
-- Deep-learning-based crowd density estimation  
-- Heatmap generation with density overlays  
-- Automatic overcrowding alerts  
-- Interactive monitoring dashboard (Flask/Streamlit)  
-- GPU-accelerated inference with CUDA  
-- Dockerized deployment  
+### ✅ **AI-Powered Crowd Counting**
+- CSRNet / MCNN deep learning models  
+- High-precision density map estimation  
+- Works on images + real-time video feed  
+
+### ✅ **Overcrowding Detection**
+- Automatically detects congestion  
+- Triggers alerts based on dynamic thresholds  
+- Supports email & SMS alerts (SMTP + Twilio)  
+
+### ✅ **Real-Time Monitoring Dashboard**
+- Built with Streamlit  
+- Live camera integration  
+- Heatmap overlays  
+- Model testing interface  
+- Inference history tracking  
+
+### ✅ **Deployment Ready**
+- Docker support  
+- GPU acceleration via CUDA  
+- Modular backend (FastAPI)  
+- Production-safe project structure  
 
 ---
+
 
 ## 🧱 Architecture Overview
 
@@ -33,6 +49,37 @@ Using deep learning (CSRNet/MCNN) and computer vision, the system generates accu
 
 Video Feed → Frame Extraction → Preprocessing → Deep Learning Model  
 Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
+
+        ┌────────────────────────┐
+        │   Live CCTV / Video    │
+        └─────────────┬──────────┘
+                      ↓
+           ┌────────────────────┐
+           │  Frame Extraction   │
+           └────────────┬───────┘
+                      ↓
+           ┌────────────────────┐
+           │   Pre-processing   │
+           │ (Resize, Normalize)│
+           └────────────┬───────┘
+                      ↓
+         ┌───────────────────────────┐
+         │    Deep Learning Model    │
+         │  CSRNet / MCNN / SimpleCNN│
+         └──────────────┬────────────┘
+                       ↓
+       ┌─────────────────────────────────┐
+       │ Density Map + Crowd Count Logic │
+       └──────────────────┬──────────────┘
+                         ↓
+    ┌──────────────────────────────┐
+    │  Overcrowding Detection      │
+    │ (Dynamic threshold alerts)   │
+    └───────────────┬─────────────┘
+                    ↓
+     ┌────────────────────────────────┐
+     │  Streamlit Dashboard + Alerts  │
+     └────────────────────────────────┘
 
 ---
 
@@ -59,12 +106,21 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
 
 ---
 
-## 📂 Dataset
+# 📂 Dataset — ShanghaiTech Crowd Counting
 
-**ShanghaiTech Crowd Counting Dataset**  
-- High-density crowd images  
-- Ground-truth density maps  
-- Benchmark dataset for CSRNet  
+The project uses the **ShanghaiTech Dataset**, a benchmark dataset used for density estimation research.
+
+### **Part A**
+- Highly dense crowds  
+- 482 images (300 train / 182 test)  
+- Average ~501 people/image  
+
+### **Part B**
+- Low-density, campus-like  
+- 716 images (400 train / 316 test)  
+- Average ~123 people/image  
+
+Ground-truth consists of head annotations `(x, y)` → converted into Gaussian density maps.
 
 ---
 
@@ -101,8 +157,8 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
 
 ### **1. Clone the Repository**
 ```
-git clone https://github.com/your-username/AI-DeepVision.git
-cd AI-DeepVision
+git clone https://github.com/sehaj_kaur/DeepVision-Crowd-Monitor.git
+cd DeepVision-Crowd-Monitor
 ```
 
 ### **2. Install Dependencies**
@@ -110,45 +166,39 @@ cd AI-DeepVision
 pip install -r requirements.txt
 ```
 
-### **3. Run Real-Time Monitoring**
+
+### **3.Setup Dataset**
 ```
-python run_realtime.py
+dataset/
+ └── ShanghaiTech/
+      ├── part_A/
+      └── part_B/
 ```
 
-### **4. Launch Dashboard**
+
+### **4. Run Backend**
+```
+uvicorn backend.main:app --reload --port 8000
+```
+
+### **5. Launch Dashboard**
 ```
 streamlit run app.py
 ```
-
 ---
 
-## 📦 Docker Deployment
+## 🖥️ Dashboard Preview
+Features:
 
-```
-docker build -t deepvision .
-docker run -p 8080:8080 deepvision
-```
+Upload images → get instant crowd estimate
 
----
+Heatmap & density map visualization
 
-## 📧 Alerts Integration
+Inference history
 
-Supports:
-- Email alerts using SMTP  
-- SMS alerts using Twilio API  
+Model comparison
 
-Triggered when crowd count crosses a predefined threshold.
-
----
-
-## 📸 Suggested Output Screenshots  
-(Add in repo)  
-- Density map  
-- Heatmap overlay  
-- Dashboard view  
-- Alert screenshot  
-
----
+Clean UI/UX with modern design
 
 ## 🛡️ Use Cases
 
