@@ -1,171 +1,169 @@
 # 🧠🔍 DeepVision Crowd Monitor  
-### **AI for Real-Time Crowd Density Estimation & Overcrowding Detection**
+### Real-Time Crowd Density Estimation & Overcrowding Detection System
 
-DeepVision Crowd Monitor is an AI-powered system designed to estimate crowd density and detect overcrowded zones **in real time** using live surveillance video feeds.  
-This project enhances **public safety**, supports **emergency response**, and enables **smart crowd management** in high-footfall environments such as:
+DeepVision Crowd Monitor is an AI-powered computer vision system designed to analyze crowd density and detect overcrowding conditions in real time using surveillance imagery. By leveraging deep learning–based density estimation models, the system produces accurate crowd counts, visual heatmaps, and safety alerts to support crowd management and public safety.
 
-- Railway & metro stations  
-- Airports  
+This project is suitable for deployment in:
+- Railway and metro stations  
+- Airports and terminals  
 - Public events and festivals  
 - Religious gatherings  
 - Stadiums  
 - Smart city surveillance systems  
 
-Using deep learning (CSRNet/MCNN) and computer vision, the system generates accurate density maps and triggers alerts when crowd limits are exceeded.
+---
+
+## 🚀 Project Capabilities
+
+### 🔹 AI-Based Crowd Counting
+- Deep learning models such as CSRNet, MobileNetCSRNet, and SimpleCNN  
+- Pixel-wise density map estimation  
+- Works with both static images and real-time video frames  
+
+### 🔹 Overcrowding Detection & Safety Alerts
+- Automatic detection of congestion  
+- Configurable crowd thresholds  
+- Four safety levels: Safe, Moderate, High Risk, Critical  
+- Alert-ready design (Email/SMS integration supported)  
+
+### 🔹 Interactive Monitoring Dashboard
+- Built using Streamlit  
+- Image upload and live monitoring  
+- Heatmap overlays and density visualization  
+- Inference history and model comparison  
+
+### 🔹 Scalable & Deployment Ready
+- Modular backend using FastAPI  
+- GPU acceleration using CUDA  
+- Docker-ready architecture  
 
 ---
 
-## 🚀 Key Features
+## 🧱 System Architecture
 
-- Real-time video processing  
-- Deep-learning-based crowd density estimation  
-- Heatmap generation with density overlays  
-- Automatic overcrowding alerts  
-- Interactive monitoring dashboard (Flask/Streamlit)  
-- GPU-accelerated inference with CUDA  
-- Dockerized deployment  
+### Processing Pipeline
 
----
-
-## 🧱 Architecture Overview
-
-**Pipeline:**
-
-Video Feed → Frame Extraction → Preprocessing → Deep Learning Model  
-Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
+Video / Image Input  
+→ Frame Extraction  
+→ Preprocessing (Resize, Normalize)  
+→ Deep Learning Model  
+→ Density Map Generation  
+→ Crowd Count Estimation  
+→ Overcrowding Detection  
+→ Dashboard Visualization & Alerts  
 
 ---
 
-## 🏗️ Tech Stack
+## 🏗️ Technology Stack
 
-### **Deep Learning**
-- CSRNet or MCNN  
-- PyTorch  
+### Deep Learning & ML
+- PyTorch (CUDA-enabled)  
+- CSRNet (VGG16-based)  
+- MobileNetCSRNet  
+- SimpleCNN  
+- RandomForest (baseline)  
 
-### **Computer Vision**
-- OpenCV  
-- NumPy  
+### Backend
+- FastAPI  
+- Uvicorn  
+
+### Frontend & Visualization
+- Streamlit  
+- Matplotlib  
+- Seaborn  
+- Pandas  
 - Pillow  
 
-### **Visualization & Alerts**
-- Matplotlib / Plotly  
-- Flask or Streamlit  
-- SMTP / Twilio API  
-
-### **Deployment**
-- Docker  
-- Nginx (optional)  
-- GPU acceleration (CUDA)  
+### Data Processing
+- NumPy  
+- SciPy  
+- OpenCV  
+- H5py  
 
 ---
 
-## 📂 Dataset
+## 📂 Dataset: ShanghaiTech Crowd Counting Dataset
 
-**ShanghaiTech Crowd Counting Dataset**  
-- High-density crowd images  
-- Ground-truth density maps  
-- Benchmark dataset for CSRNet  
+- Total Images: 1,198  
+- Total Annotations: 330,000+ people  
 
----
+### Dataset Parts
+- Part A: Highly dense crowd scenes (Internet images)  
+- Part B: Medium-density street and campus scenes  
 
-## 🗂️ Project Milestones
-
-### **Milestone 1: Setup & Data Preparation (Weeks 1–2)**  
-- Install dependencies (PyTorch, OpenCV, etc.)  
-- Download and preprocess dataset  
-- Build data loader + visualization modules  
-- Validate environment setup  
-
-### **Milestone 2: Model Training (Weeks 3–4)**  
-- Implement CSRNet/MCNN  
-- Train model with dataset  
-- Generate density maps  
-- Validate using MAE  
-
-### **Milestone 3: Real-Time Integration (Weeks 5–6)**  
-- Connect OpenCV to live camera feed  
-- Real-time crowd counting  
-- Overcrowding detection  
-- Trigger alerts  
-
-### **Milestone 4: Dashboard & Deployment (Weeks 7–8)**  
-- Real-time dashboard (Flask/Streamlit)  
-- Email/SMS alerts (SMTP/Twilio)  
-- Docker containerization  
-- GPU optimization  
-- Deployment documentation  
+### Ground Truth
+- Head annotations stored in .mat files  
+- Density maps generated using Gaussian kernels  
 
 ---
 
-## 🧪 How to Run the Project
+## 🤖 Implemented Models
 
-### **1. Clone the Repository**
-```
-git clone https://github.com/your-username/AI-DeepVision.git
-cd AI-DeepVision
-```
+### CSRNet
+- VGG16 frontend with dilated convolution backend  
+- High accuracy in dense crowds  
 
-### **2. Install Dependencies**
-```
+### MobileNetCSRNet
+- Lightweight and faster inference  
+- Suitable for edge devices  
+
+### SimpleCNN
+- Custom lightweight architecture  
+- Optimized for real-time performance  
+
+### RandomForest
+- Classical ML baseline  
+- Useful for comparison and interpretability  
+
+---
+
+## 🧪 Running the Project
+
+### Installation
+
+```bash
+git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
+cd deepVision_crowd_monitor
+python -m venv venv
+venv\Scripts\activate   # Windows
+source venv/bin/activate # Linux/Mac
 pip install -r requirements.txt
 ```
 
-### **3. Run Real-Time Monitoring**
-```
-python run_realtime.py
+### Dataset Setup
+Place the dataset in:
+Dataset/ShanghaiTech/
+
+### Start Backend
+```bash
+uvicorn backend.main:app --reload --port 8000
 ```
 
-### **4. Launch Dashboard**
-```
+### Launch Dashboard
+```bash
+cd frontend
 streamlit run app.py
 ```
 
 ---
 
-## 📦 Docker Deployment
-
-```
-docker build -t deepvision .
-docker run -p 8080:8080 deepvision
-```
-
----
-
-## 📧 Alerts Integration
-
-Supports:
-- Email alerts using SMTP  
-- SMS alerts using Twilio API  
-
-Triggered when crowd count crosses a predefined threshold.
-
----
-
-## 📸 Suggested Output Screenshots  
-(Add in repo)  
-- Density map  
-- Heatmap overlay  
-- Dashboard view  
-- Alert screenshot  
-
----
-
 ## 🛡️ Use Cases
-
 - Crowd safety monitoring  
-- Smart city surveillance  
-- Event management  
-- Railway/Metro stations  
-- Emergency evacuation assistance  
+- Event and festival management  
+- Transportation hub surveillance  
+- Emergency evacuation planning  
+- Smart city analytics  
 
 ---
 
-## 🔮 Future Enhancements
-
-- Multi-camera fusion  
+## 🔮 Future Scope
+- Live CCTV stream processing  
+- Multi-camera crowd fusion  
 - Predictive crowd analytics  
-- IoT/Edge deployment  
-- Model compression  
+- Edge AI deployment  
+- Cloud-based scalability  
 
 ---
 
+## 📄 License
+This project is intended for educational and research purposes.

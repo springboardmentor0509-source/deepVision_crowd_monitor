@@ -1,5 +1,7 @@
 import os
+import pickle
 import sys
+from xml.parsers.expat import model
 import torch
 import joblib
 import numpy as np
@@ -53,9 +55,20 @@ class ModelManager:
             model.load_state_dict(torch.load(self.model_paths[model_name], map_location=self.device))
 
         elif model_name == "RandomForest":
-            model = joblib.load(self.model_paths[model_name])
+            model_path = self.model_paths["RandomForest"]
+
+            try:
+                # Try normal loading first
+                model = joblib.load(model_path)
+            except Exception as e:
+                print("⚠ Joblib failed. Trying fallback pickle loader...")
+                print("Error:", e)
+                with open(model_path, "rb") as f:
+                    model = pickle.load(f)   # built-in pickle works in Python 3.13
+
             self.models[model_name] = model
             return model
+
 
         else:
             raise ValueError(f"Unknown model: {model_name}")
