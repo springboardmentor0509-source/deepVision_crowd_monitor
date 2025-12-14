@@ -1,7 +1,7 @@
 # config.py
 
-DATASET_ROOT = r"E:\mertor\P4_AI-DeepVision\DeepVision_Crowd_Monitor\dataset\ShanghaiTech"
-OUT_ROOT     = r"E:\mertor\P4_AI-DeepVision\DeepVision_Crowd_Monitor\processed_data"
+DATASET_ROOT = r"c:\Users\ankit\OneDrive\Desktop\deepvision_crowd\deepVision_crowd_monitor\dataset\ShanghaiTech"
+OUT_ROOT     = r"c:\Users\ankit\OneDrive\Desktop\deepvision_crowd\deepVision_crowd_monitor\processed_data"
 
 RESIZE_SHORT_SIDE = 1024      
 EXTRACT_PATCHES = False  
