@@ -35,9 +35,9 @@ st.sidebar.caption("Crowd Counting Monitor")
 section = st.sidebar.radio("Select Section", ["About", "Data Visualization", "Model Evaluation Results", "Live Demo"])
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("Backend Settings")
-backend_url = st.sidebar.text_input("API URL", "http://localhost:8000", help="Base URL of the FastAPI backend used for predictions.")
-st.sidebar.markdown("---")
+# st.sidebar.markdown("Backend Settings")
+# backend_url = st.sidebar.text_input("API URL", "http://localhost:8501", help="Base URL of the FastAPI backend used for predictions.")
+# st.sidebar.markdown("---")
 st.sidebar.markdown("DeepVision Crowd Counting")
 
 # ---------------- HELPERS ----------------
