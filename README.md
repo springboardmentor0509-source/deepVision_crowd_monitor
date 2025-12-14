@@ -421,23 +421,10 @@ streamlit run app.py --server.port 8502
 
 ---
 
-## 📚 Research References
-
-1. Li, Y., Zhang, X., & Chen, D. (2018). **CSRNet: Dilated Convolutional Neural Networks for Understanding the Highly Congested Scenes**. CVPR 2018.
-
-2. Zhang, Y., Zhou, D., Chen, S., Gao, S., & Ma, Y. (2016). **Single-Image Crowd Counting via Multi-Column Convolutional Neural Network**. CVPR 2016.
-
-3. ShanghaiTech Dataset: https://github.com/desenzhou/ShanghaiTechDataset
 
 ---
 
-## 👥 Contributors
 
-- **Your Name** - Project Lead
-- Mentor: [Mentor Name]
-- Organization: Springboard Mentor
-
----
 
 ## 📄 License
 
@@ -454,13 +441,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 Contact & Support
 
-<!-- - **Email**: your.email@example.com -->
-- **GitHub Issues**: [Report bugs](https://github.com/springboardmentor0509-source/deepVision_crowd_monitor/issues)
-- **Documentation**: [Wiki](https://github.com/springboardmentor0509-source/deepVision_crowd_monitor/wiki)
-
----
 
 ## ⭐ Star History
 

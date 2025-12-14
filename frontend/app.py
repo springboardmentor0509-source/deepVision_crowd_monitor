@@ -35,9 +35,9 @@ st.sidebar.caption("Crowd Counting Monitor")
 section = st.sidebar.radio("Select Section", ["About", "Data Visualization", "Model Evaluation Results", "Live Demo"])
 
 st.sidebar.markdown("---")
-# st.sidebar.markdown("Backend Settings")
-# backend_url = st.sidebar.text_input("API URL", "http://localhost:8501", help="Base URL of the FastAPI backend used for predictions.")
-# st.sidebar.markdown("---")
+st.sidebar.markdown("Backend Settings")
+backend_url = st.sidebar.text_input("API URL", "http://localhost:8000", help="Base URL of the FastAPI backend used for predictions.")
+st.sidebar.markdown("---")
 st.sidebar.markdown("DeepVision Crowd Counting")
 
 # ---------------- HELPERS ----------------
@@ -93,9 +93,197 @@ def fetch_models(url: str):
 st.markdown(
     """
     <style>
-    .dv-card { border-radius: 10px; padding: 8px; background-color: #0f1720; box-shadow: 0 6px 18px rgba(0,0,0,0.35); margin-bottom: 14px; }
-    .dv-figure-title { font-weight:600; color: #f3f4f6; margin-top:6px; margin-bottom:2px; }
-    .dv-subtle { color: #9ca3af; font-size: 13px; }
+    /* Import modern font */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    /* Global styles */
+    * {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    
+    /* Custom card styles */
+    .dv-card { 
+        border-radius: 12px; 
+        padding: 16px; 
+        background: linear-gradient(135deg, #0f1720 0%, #1a2332 100%);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2); 
+        margin-bottom: 18px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .dv-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .dv-figure-title { 
+        font-weight: 600; 
+        color: #f3f4f6; 
+        margin-top: 8px; 
+        margin-bottom: 4px;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+    }
+    
+    .dv-subtle { 
+        color: #9ca3af; 
+        font-size: 12px;
+        font-weight: 300;
+    }
+    
+    /* Enhanced buttons */
+    .stButton>button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+    
+    /* Sidebar styling */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0a0f1e 0%, #1a1f2e 100%);
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    [data-testid="stSidebar"] .stRadio label {
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: background 0.2s ease;
+    }
+    
+    [data-testid="stSidebar"] .stRadio label:hover {
+        background: rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Metrics styling */
+    [data-testid="stMetricValue"] {
+        font-size: 28px;
+        font-weight: 700;
+        color: #667eea;
+    }
+    
+    [data-testid="stMetricDelta"] {
+        font-size: 12px;
+    }
+    
+    /* File uploader */
+    [data-testid="stFileUploader"] {
+        background: rgba(102, 126, 234, 0.05);
+        border: 2px dashed rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    [data-testid="stFileUploader"]:hover {
+        border-color: rgba(102, 126, 234, 0.6);
+        background: rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Success/Error/Warning boxes */
+    .stSuccess, .stError, .stWarning, .stInfo {
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-weight: 400;
+    }
+    
+    /* Dataframe styling */
+    .dataframe {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px 8px 0 0;
+        padding: 10px 20px;
+        background: rgba(102, 126, 234, 0.05);
+        transition: all 0.2s ease;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: rgba(102, 126, 234, 0.15);
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white !important;
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background: rgba(102, 126, 234, 0.05);
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        background: rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Selectbox/Input styling */
+    .stSelectbox, .stTextInput, .stTextArea {
+        border-radius: 8px;
+    }
+    
+    /* Spinner animation */
+    .stSpinner > div {
+        border-top-color: #667eea !important;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #0f1720;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+    
+    /* Glow effect for headings */
+    h1, h2, h3 {
+        text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Image hover effect */
+    img {
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+    
+    img:hover {
+        transform: scale(1.02);
+    }
     </style>
     """,
     unsafe_allow_html=True,
