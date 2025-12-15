@@ -133,16 +133,18 @@ pip install -r requirements.txt
 ```
 
 ## 🖥️ Running the Application
-### **🔹 Start FastAPI Backend**
-```
+## 🔹 Start FastAPI Backend
+
+```bash
 cd backend
 uvicorn main:app --reload
 
-Backend runs at:
-👉 http://localhost:8000
+Backend runs at:  
+👉 http://localhost:8000  
 
-Swagger UI:
-👉 http://localhost:8000/docs
+Swagger UI (API docs):  
+👉 http://localhost:8000/docs  
+
 ```
 
 ### **4. Launch Dashboard**
