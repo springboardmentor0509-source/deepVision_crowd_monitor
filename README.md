@@ -140,10 +140,10 @@ cd backend
 uvicorn main:app --reload
 
 Backend runs at:  
-👉 http://localhost:8000  
+👉 [http://localhost:8000](http://localhost:8000)
 
-Swagger UI (API docs):  
-👉 http://localhost:8000/docs  
+API docs:  
+👉 [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ```
 
