@@ -147,7 +147,7 @@ API docs:
 
 ```
 
-### **4. Launch Dashboard**
+### ** Launch Dashboard**
 ```
 streamlit run app.py
 ```
