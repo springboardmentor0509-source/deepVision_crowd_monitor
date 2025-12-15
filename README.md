@@ -1,55 +1,69 @@
-DeepVision Crowd Monitor
-AI System for Real-Time Crowd Density Estimation, Overcrowding Detection & Visual Analytics
+# 🧠🔍 DeepVision Crowd Monitor
 
-DeepVision Crowd Monitor is an end-to-end AI platform designed to estimate crowd density, detect overcrowded regions, and visualize density maps using deep learning models and live video analysis.
+### AI System for Real-Time Crowd Density Estimation, Overcrowding Detection & Visual Analytics
 
-Built for real-world safety applications such as:
+DeepVision Crowd Monitor is an **end-to-end AI platform** designed to estimate crowd density, detect overcrowded regions, and visualize density maps using **deep learning models and video analysis**.
 
-Railway & Metro Stations
+Built for real-world **public safety and smart surveillance** applications such as:
 
-Airports
+- 🚉 Railway & Metro Stations  
+- ✈️ Airports  
+- 🕌 Religious Gatherings  
+- 🎉 Festivals & Public Events  
+- 🏟 Stadiums  
+- 🏙 Smart City Surveillance  
 
-Religious Gatherings
+The system combines **deep learning, computer vision, statistical analysis, and an interactive dashboard** to enable intelligent crowd monitoring.
 
-Festivals & Public Events
+---
 
-Stadiums
+## 🚀 Key Features
 
-Smart City Surveillance
+### 🔹 Real-Time Processing
+- Crowd density estimation on image/video frames  
+- Fast inference using **FastAPI backend**  
+- Live visualization using **Streamlit dashboard**
 
-The system uses deep learning, computer vision, statistical analysis, and an interactive dashboard to enable intelligent crowd monitoring.
+---
 
-Key Features
-Real-Time Processing
+### 🔹 Multiple ML/DL Models Supported
 
-Crowd density estimation on image/video frames
+| Model Name       | Description |
+|------------------|------------|
+| **CSRNet**       | High-accuracy crowd counting using dilated CNN |
+| **MobileCSRNet** | Lightweight and fast model optimized for real-time |
+| **SimpleCNN**    | Baseline CNN model for demonstration |
+| **Random Forest**| Classical ML baseline for comparison |
 
-Fast inference using FastAPI backend
+---
 
-Live visualization in Streamlit dashboard
+### 🔹 Interactive Dashboard (Streamlit)
 
-Multiple ML/DL Models Supported
+Includes:
+- 📊 **EDA Viewer**
+- 🧪 **Model Evaluation Viewer**
+- 🖼 **Prediction Samples**
+- 🎛 **Live Demo Tab**
+- 📚 **About Page**
 
-Model	Description
-CSRNet	High-accuracy crowd counting using dilated CNN
-MobileCSRNet	Faster, lightweight variant optimized for realtime
-SimpleCNN	Beginner-friendly baseline CNN
-Random Forest	Classical ML model used as non-DL baseline
-Interactive Dashboard (Streamlit)
+---
 
-EDA Viewer
+### 🔹 Automated EDA (Exploratory Data Analysis)
+- Distribution plots  
+- Heatmaps  
+- Correlation matrices  
+- Summary statistics  
+- Auto-generated CSV reports  
 
-Model Evaluation Viewer
+---
 
-Prediction Samples
+### 🔹 Model Evaluation Tools
+- MAE, MSE, RMSE metrics  
+- Training & validation curves  
+- Per-model prediction samples  
+- CSV-based evaluation reports  
 
-Live Demo
-
-About Page
-
-Automated EDA: Histograms, Heatmaps, Summary stats
-
-Model Evaluation: Loss curves, Validation predictions, MAE/MSE/RMSE statistics
+---
 
 ## 🧱 Architecture Overview
 
@@ -60,26 +74,33 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
 
 ---
 
-## 🏗️ Tech Stack
+## 🧬 Tech Stack
 
-### **Deep Learning**
-- CSRNet or MCNN  
-- PyTorch  
+### 🔹 Deep Learning & Machine Learning
+- **PyTorch** – Deep learning framework  
+- **CSRNet** – Crowd density estimation model  
+- **MobileCSRNet** – Lightweight real-time crowd estimation variant  
+- **SimpleCNN** – Baseline convolutional neural network  
+- **Random Forest** – Classical machine learning baseline  
 
-### **Computer Vision**
-- OpenCV  
-- NumPy  
-- Pillow  
+### 🔹 Computer Vision & Data Processing
+- **OpenCV** – Video frame extraction & image processing  
+- **NumPy** – Numerical computations  
+- **Pandas** – Data analysis & evaluation  
 
-### **Visualization & Alerts**
-- Matplotlib / Plotly  
-- Flask or Streamlit  
-- SMTP / Twilio API  
+### 🔹 Backend
+- **FastAPI** – High-performance inference API  
+- **Uvicorn** – ASGI server for FastAPI  
 
-### **Deployment**
-- Docker  
-- Nginx (optional)  
-- GPU acceleration (CUDA)  
+### 🔹 Frontend & Visualization
+- **Streamlit** – Interactive web dashboard  
+- **Matplotlib / Seaborn** – Data visualization & plots  
+
+### 🔹 Tools & Utilities
+- **Python 3.9+** – Core programming language  
+- **Git & GitHub** – Version control & collaboration  
+- **CUDA (optional)** – GPU acceleration for deep learning  
+
 
 ---
 
@@ -89,71 +110,45 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
 - High-density crowd images  
 - Ground-truth density maps  
 - Benchmark dataset for CSRNet  
-
+ 
 ---
 
-## 🗂️ Project Milestones
-
-### **Milestone 1: Setup & Data Preparation (Weeks 1–2)**  
-- Install dependencies (PyTorch, OpenCV, etc.)  
-- Download and preprocess dataset  
-- Build data loader + visualization modules  
-- Validate environment setup  
-
-### **Milestone 2: Model Training (Weeks 3–4)**  
-- Implement CSRNet/MCNN  
-- Train model with dataset  
-- Generate density maps  
-- Validate using MAE  
-
-### **Milestone 3: Real-Time Integration (Weeks 5–6)**  
-- Connect OpenCV to live camera feed  
-- Real-time crowd counting  
-- Overcrowding detection  
-- Trigger alerts  
-
-### **Milestone 4: Dashboard & Deployment (Weeks 7–8)**  
-- Real-time dashboard (Flask/Streamlit)  
-- Email/SMS alerts (SMTP/Twilio)  
-- Docker containerization  
-- GPU optimization  
-- Deployment documentation  
-
----
-
-## 🧪 How to Run the Project
+## ⚙️ Installation & Setup
 
 ### **1. Clone the Repository**
 ```
-git clone https://github.com/your-username/AI-DeepVision.git
-cd AI-DeepVision
+git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
+cd deepVision_crowd_monitor
 ```
 
-### **2. Install Dependencies**
+### **2. Create virtual environment**
+```
+python -m venv venv
+venv\Scripts\activate
+```
+
+### **3. Install Dependencies**
 ```
 pip install -r requirements.txt
 ```
 
-### **3. Run Real-Time Monitoring**
+## 🖥️ Running the Application
+### **🔹 Start FastAPI Backend**
 ```
-python run_realtime.py
+cd backend
+uvicorn main:app --reload
+
+Backend runs at:
+👉 http://localhost:8000
+
+Swagger UI:
+👉 http://localhost:8000/docs
 ```
 
 ### **4. Launch Dashboard**
 ```
 streamlit run app.py
 ```
-
----
-
-## 📦 Docker Deployment
-
-```
-docker build -t deepvision .
-docker run -p 8080:8080 deepvision
-```
-
----
 
 ## 📧 Alerts Integration
 
@@ -174,22 +169,27 @@ Triggered when crowd count crosses a predefined threshold.
 
 ---
 
-## 🛡️ Use Cases
+## 🎯 Use Cases
 
-- Crowd safety monitoring  
 - Smart city surveillance  
-- Event management  
-- Railway/Metro stations  
-- Emergency evacuation assistance  
-
----
+- Public safety monitoring  
+- Stadium & event crowd control  
+- Metro & railway station monitoring  
+- Emergency response systems  
 
 ## 🔮 Future Enhancements
 
 - Multi-camera fusion  
+- Edge deployment (Jetson Nano)  
+- ONNX / TensorRT optimization  
 - Predictive crowd analytics  
-- IoT/Edge deployment  
-- Model compression  
+- Automated SMS / Email alerting  
 
----
+## 🤝 Contributing
 
+Contributions are welcome!  
+Feel free to open issues, submit pull requests, or suggest improvements.
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
