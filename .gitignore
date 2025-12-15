@@ -1,9 +1,18 @@
 # Python & Virtual Env
+# Python & Virtual Env
 venv/
+**/venv/
 __pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 *.pyd
+**/.ipynb_checkpoints/
+
+# Archives / extra drops (keep repo lean)
+Codes-20251210T112049Z-1-001/
+Docs-20251210T112959Z-1-001/
+Dataset-20251210T112632Z-1-001/
 
 # Datasets & Media Files
 dataset/

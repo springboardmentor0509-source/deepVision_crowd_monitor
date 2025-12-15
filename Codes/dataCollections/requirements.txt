@@ -1,0 +1,7 @@
+yt-dlp
+opencv-python
+numpy
+matplotlib
+pillow
+torch
+torchvision
