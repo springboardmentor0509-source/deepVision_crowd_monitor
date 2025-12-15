@@ -140,10 +140,10 @@ cd backend
 uvicorn main:app --reload
 
 Backend runs at:  
-👉 [http://localhost:8000](http://localhost:8000)
+👉 [http://localhost:8000]
 
 API docs:  
-👉 [http://localhost:8000/docs](http://localhost:8000/docs)
+👉 [http://localhost:8000/docs]
 
 ```
 
@@ -159,15 +159,6 @@ Supports:
 - SMS alerts using Twilio API  
 
 Triggered when crowd count crosses a predefined threshold.
-
----
-
-## 📸 Suggested Output Screenshots  
-(Add in repo)  
-- Density map  
-- Heatmap overlay  
-- Dashboard view  
-- Alert screenshot  
 
 ---
 
