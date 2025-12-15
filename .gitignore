@@ -1,22 +1,53 @@
-<<<<<<< HEAD
-ShanghaiTech/
-shanghaitech_h5_empty/
-crowd_video.mp4
-=======
+# =========================
 # Python & Virtual Env
+# =========================
 venv/
+env/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Datasets & Media Files
-dataset/
-crowd_video.mp4
-
+# =========================
 # OS / Editor Files
+# =========================
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
->>>>>>> 63d20ffefbb207e514f549accf39d744d32b963a
+
+# =========================
+# Datasets (DO NOT UPLOAD)
+# =========================
+ShanghaiTech/
+shanghaitech_h5_empty/
+dataset/
+data/
+frames/
+dataCollections/
+
+# =========================
+# Media Files
+# =========================
+*.mp4
+*.avi
+*.mkv
+
+# =========================
+# Model Weights (Large)
+# =========================
+*.pth
+*.pt
+*.h5
+*.onnx
+
+# =========================
+# Logs & Outputs
+# =========================
+logs/
+*.log
+
+# =========================
+# Streamlit
+# =========================
+.streamlit/
