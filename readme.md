@@ -288,15 +288,15 @@ streamlit run app.py
 
 1. Integration with Drone-Based Crowd Monitoring
 
-  - Enable aerial video input from drones for wide-area and dynamic crowd surveillance.
+      - Enable aerial video input from drones for wide-area and dynamic crowd surveillance.
 
-  - Improve accuracy in open grounds, festivals, and disaster-response scenarios.
+      - Improve accuracy in open grounds, festivals, and disaster-response scenarios.
 
 2. Multi-Camera Synchronization
 
-  - Fuse data from multiple overlapping cameras to avoid double counting.
+    - Fuse data from multiple overlapping cameras to avoid double counting.
 
-  - Perform cross-camera identity and density correlation for large venues.
+    - Perform cross-camera identity and density correlation for large venues.
 
 3. Predictive Analytics for Crowd Flow Trends
 
