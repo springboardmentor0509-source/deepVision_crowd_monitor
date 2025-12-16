@@ -12,7 +12,9 @@ The system aims to enhance public safety, support emergency response, and optimi
 - Transit hubs  
 - Public events  
 - Religious gatherings  
-- Smart city infrastructures  
+- Smart city infrastructures 
+- Stadiums
+- Concerts 
 
 By leveraging **Convolutional Neural Networks (CNNs)** and advanced **crowd estimation algorithms**, the system provides **timely insights** and **automated alerts** to authorities for proactive crowd control.
 
@@ -20,48 +22,109 @@ By leveraging **Convolutional Neural Networks (CNNs)** and advanced **crowd esti
 
 ##  Project Workflow
 
-1. **Video Input** — Capture live feed from CCTV or surveillance cameras.  
-2. **Frame Extraction** — Sample frames at fixed time intervals.  
-3. **Preprocessing** — Resize, normalize, and clean image frames.  
-4. **Crowd Estimation** — Generate density maps using deep learning (e.g., CSRNet).  
-5. **Counting & Detection** — Estimate crowd count and flag overcrowded zones.  
-6. **Alert & Visualization** — Display heatmaps and trigger alerts if limits are exceeded.
+1. **Video Feed** → Source of crowd data (CCTV/live stream/video file).
+2. **Frame Extraction** → Converts video into frames for model processing.
+3. **Preprocessing** → Standardizes frames for robust model inference.
+4. **Deep Learning Model** → Predicts density maps representing people distribution.
+5. **Crowd Count Logic** → Integrates density map to estimate total crowd count.
+6. **Overcrowding Detection** → Flags risk zones using predefined thresholds.
+7. **Dashboard + Alerts** → Displays real-time analytics and safety warnings
 
 ---
 
 ##  Architecture Diagram
 
-*(Include architecture image here once available)*
+Project Pipeline
+
+┌─────────────┐
+│  Video Feed │  (CCTV / Video File / Live Stream)
+└──────┬──────┘
+       ↓
+┌──────────────────┐
+│ Frame Extraction │  (FPS control, frame sampling)
+└──────┬───────────┘
+       ↓
+┌──────────────────┐
+│ Preprocessing    │
+│ • Resize         │
+│ • Normalize      │
+│ • Denoise        │
+│ • ROI selection  │
+└──────┬───────────┘
+       ↓
+┌──────────────────────────┐
+│ Deep Learning Model      │
+│ • CSRNet                 │
+│ • MobileNetCSRNet        │
+│ • SimpleCNN              │
+└──────┬───────────────────┘
+       ↓
+┌──────────────────┐
+│ Density Map      │
+│ Generation       │
+└──────┬───────────┘
+       ↓
+┌──────────────────┐
+│ Crowd Count      │
+│ Logic (Σ pixels) │
+└──────┬───────────┘
+       ↓
+┌──────────────────────────┐
+│ Overcrowding Detection   │
+│ • Threshold comparison   │
+│ • Temporal smoothing     │
+└──────┬───────────────────┘
+       ↓
+┌──────────────────────────┐
+│ Dashboard & Alerts       │
+│ • Streamlit UI           │
+│ • Heatmaps               │
+│ • Live count             │
+│ • Warning notifications  │
+└──────────────────────────┘
+
 
 ---
 
 ##  Tech Stack
 
 ### Deep Learning & Model
-- **CSRNet** or **MCNN** — for crowd density estimation  
-- **PyTorch** — model development and inference  
+- **PyTorch** - Used to build and train deep neural networks efficiently on GPU.
+- **CSRNet** - VGG16-based encoder-decoder used for accurate crowd counting via density-map regression.
+- **MobileNetCSRNet** - Lightweight version used for faster crowd counting on low-resource devices.
+- **SimpleCNN** - Used as a baseline to compare performance with complex models.
+- **RandomForest** - Used to benchmark deep learning models against traditional ML. 
 
 ### Computer Vision & Processing
-- **OpenCV** — video capture, frame extraction, and visualization  
-- **NumPy**, **Pillow** — image manipulation  
+- **NumPy & SciPy** - Used for numerical computation and scientific processing.
+- **OpenCV** - Used for image transformations and preprocessing.
+- **Pillow (PIL)** - Image loading and format handling
 
 ### Visualization & Alerts
-- **Matplotlib** / **Plotly** — heatmaps and overlays  
-- **Flask** / **Streamlit** — real-time web dashboard  
-- **SMTP / Twilio API** — alert system integration  
+- **Matplotlib** / **Plotly** - heatmaps and overlays  
+- **Flask** / **Streamlit** - real-time web dashboard  
+- **SMTP / Twilio API** - alert system integration  
+- **Pandas** -  Structures data for tables, charts, and logs.
+- **Heatmaps** - Density Maps which visually show crowd concentration.
 
 ### Deployment & Integration
 - **Docker** — containerization  
 - **Nginx (optional)** — reverse proxy for dashboard  
 - **GPU Support (NVIDIA CUDA)** — optimized real-time performance  
+- **FastAPI** - Deploys trained models as REST APIs for inference.
+- **Uvicorn** - Runs the FastAPI application using an ASGI server.
+- **PyTorch** - Loads trained models for production use.
+- **Virtual Environment(venv / conda)** - Isolates dependencies for stable deployment.
 
 ---
 
 ##  Dataset
 
 - **ShanghaiTech Crowd Counting Dataset**  
-  Includes labeled images and density maps used for training and validation.
-
+  This dataset contains total of 1198 images and density maps used for training and validation.
+- **Total Images** : 1,198 images
+- **Part A** : 482 images (300 train + 182 test)
+- **Part B** : 716 images (400 train + 316 test)
 ---
 
 ##  Project Milestones
@@ -126,25 +189,154 @@ By leveraging **Convolutional Neural Networks (CNNs)** and advanced **crowd esti
 
 ---
 
+##How to Run the Project
+
+Prerequisites
+Python 3.11+
+CUDA 12.1+ (for GPU acceleration)
+PyTorch 2.5.1+
+
+**1. Clone the Repository**
+'''bash
+git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
+cd deepVision_crowd_monitor
+'''
+
+**2. Create Virtual Environment**
+'''# Create virtual environment
+python -m venv venvdvc
+# Activate virtual environment
+# Windows (Command Prompt / PowerShell)
+venvdvc\Scripts\activate
+# Linux / macOS
+source venvdvc/bin/activate
+'''
+
+**3. Install Dependencies**
+'''
+pip install -r requirements.txt
+'''
+'''
+Or install these following:
+yt-dlp
+opencv-python
+numpy
+matplotlib
+pillow
+torch
+torchvision
+
+#req for eda_onDataset.py
+#numpy
+pandas
+#matplotlib
+seaborn
+#opencv-python
+#Pillow
+scipy
+tqdm
+#torch
+#torchvision
+torchaudio
+
+# Backend & Frontend requirements
+fastapi
+uvicorn
+python-multipart
+streamlit
+scikit-learn
+joblib
+scikit-image
+'''
+
+**4. Download Dataset**
+'''
+Download the ShanghaiTech dataset and place it in Dataset/ShanghaiTech/
+'''
+
+**5. Preprocess Data (Optional - if training from scratch)**
+'''
+python preprocessing/run_preprocess.py
+'''
+
+**6. Train Models (Optional - pre-trained models available)**
+'''
+# CSRNet
+python run_csrnet.py
+
+# MobileNetCSRNet
+python run_mobile_csrnet.py
+
+# SimpleCNN
+python run_simple_cnn.py
+
+# RandomForest
+python run_random_forest.py
+'''
+
+**7. Start Backend**
+'''
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+#Backend runs on http://localhost:8000
+'''
+
+**8. Launch Streamlit Dashboard(Frontend)**
+'''
+streamlit run app.py
+# Dashboard opens at http://localhost:8501
+'''
+
+---
+
+##  Future Enhancements
+
+- 1. Integration with Drone-Based Crowd Monitoring
+
+    Enable aerial video input from drones for wide-area and dynamic crowd surveillance.
+
+    Improve accuracy in open grounds, festivals, and disaster-response scenarios.
+
+2. Multi-Camera Synchronization
+
+    Fuse data from multiple overlapping cameras to avoid double counting.
+
+    Perform cross-camera identity and density correlation for large venues.
+
+3. Predictive Analytics for Crowd Flow Trends
+
+    Use time-series models to forecast crowd growth, movement, and congestion.
+
+    Enable early warnings before overcrowding actually occurs.
+
+4. Real-Time Crowd Movement Tracking
+
+    Extend from static counting to directional flow analysis.
+
+    Identify entry/exit bottlenecks and evacuation risks.
+
+5. Edge Deployment on Embedded Devices
+
+    Deploy lightweight models on edge devices (Jetson / edge GPUs).
+
+    Reduce latency and dependence on centralized servers.
+
+6. Automated Alert Escalation System
+
+    Trigger tiered alerts (visual → audio → authority notification).
+
+    Integrate SMS/email alerts for emergency response teams.
+
+7. Weather & Event-Aware Crowd Prediction
+
+    Combine crowd data with weather and event schedules.
+
+    Improve prediction accuracy during peak or abnormal conditions.
+
+---
+
 ##  License
 
 This project is intended for **research and educational purposes**.  
 Refer to the LICENSE file (if applicable) for usage terms.
 
 ---
-
-##  Contributors
-
-- Project Mentor: *[Add Name]*  
-- Developers: *[Add Team Members]*
-
----
-
-##  Future Enhancements
-
-- Integration with drone-based crowd monitoring  
-- Multi-camera synchronization  
-- Predictive analytics for crowd flow trends  
-
----
-
