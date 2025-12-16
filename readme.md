@@ -83,9 +83,9 @@ Project Pipeline
 - **Heatmaps** - Density Maps which visually show crowd concentration.
 
 ### Deployment & Integration
-- **Docker** — containerization  
-- **Nginx (optional)** — reverse proxy for dashboard  
-- **GPU Support (NVIDIA CUDA)** — optimized real-time performance  
+- **Docker** - containerization  
+- **Nginx (optional)** - reverse proxy for dashboard  
+- **GPU Support (NVIDIA CUDA)** - optimized real-time performance  
 - **FastAPI** - Deploys trained models as REST APIs for inference.
 - **Uvicorn** - Runs the FastAPI application using an ASGI server.
 - **PyTorch** - Loads trained models for production use.
