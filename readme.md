@@ -35,21 +35,31 @@ By leveraging **Convolutional Neural Networks (CNNs)** and advanced **crowd esti
 ##  Architecture Diagram
 
 Project Pipeline
-
-```mermaid
-flowchart TD
-    A[Video Feed<br/>(CCTV / Video / Live Stream)]
-    B[Frame Extraction<br/>(FPS control, sampling)]
-    C[Preprocessing<br/>Resize · Normalize · Denoise · ROI]
-    D[Deep Learning Model<br/>CSRNet · MobileNetCSRNet · SimpleCNN]
-    E[Density Map Generation]
-    F[Crowd Count Logic<br/>(Σ density pixels)]
-    G[Overcrowding Detection<br/>Thresholds · Temporal smoothing]
-    H[Dashboard & Alerts<br/>Streamlit · Heatmaps · Live Count]
-
-    A --> B --> C --> D --> E --> F --> G --> H
-
----
+```bash
+┌──────────────┐
+│ Streamlit UI │
+└──────┬───────┘
+       │ HTTP Request (frame)
+       ↓
+┌────────────────┐
+│ FastAPI Server │
+│ (Uvicorn)      │
+└──────┬─────────┘
+       ↓
+┌────────────────┐
+│ DL Model       │
+│ (PyTorch)      │
+└──────┬─────────┘
+       ↓
+┌────────────────┐
+│ JSON Response  │
+│ count + map    │
+└──────┬─────────┘
+       ↓
+┌──────────────┐
+│ Streamlit UI │
+└──────────────┘
+```
 
 ##  Tech Stack
 
