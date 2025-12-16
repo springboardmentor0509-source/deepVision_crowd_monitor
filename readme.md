@@ -1,6 +1,6 @@
 #  DeepVision Crowd Monitor
 
-### AI for Density Estimation and Overcrowding Detection
+## AI for Density Estimation and Overcrowding Detection
 
 ---
 
@@ -273,7 +273,7 @@ python run_random_forest.py
 **7. Start Backend**
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-#Backend runs on http://localhost:8000
+# Backend runs on http://localhost:8000
 ```
 
 **8. Launch Streamlit Dashboard(Frontend)**
@@ -286,46 +286,39 @@ streamlit run app.py
 
 ##  Future Enhancements
 
-1. Integration with Drone-Based Crowd Monitoring
+### 1. Integration with Drone-Based Crowd Monitoring
 
-      - Enable aerial video input from drones for wide-area and dynamic crowd surveillance.
+  - Enable aerial video input from drones for wide-area and dynamic crowd surveillance.
+  - Improve accuracy in open grounds, festivals, and disaster-response scenarios.
 
-      - Improve accuracy in open grounds, festivals, and disaster-response scenarios.
+### 2. Multi-Camera Synchronization
 
-2. Multi-Camera Synchronization
+  - Fuse data from multiple overlapping cameras to avoid double counting.
+  - Perform cross-camera identity and density correlation for large venues.
 
-    - Fuse data from multiple overlapping cameras to avoid double counting.
-
-    - Perform cross-camera identity and density correlation for large venues.
-
-3. Predictive Analytics for Crowd Flow Trends
+### 3. Predictive Analytics for Crowd Flow Trends
 
   - Use time-series models to forecast crowd growth, movement, and congestion.
-
   - Enable early warnings before overcrowding actually occurs.
 
-4. Real-Time Crowd Movement Tracking
+### 4. Real-Time Crowd Movement Tracking
 
   - Extend from static counting to directional flow analysis.
-
   - Identify entry/exit bottlenecks and evacuation risks.
 
-5. Edge Deployment on Embedded Devices
+### 5. Edge Deployment on Embedded Devices
 
   - Deploy lightweight models on edge devices (Jetson / edge GPUs).
-
   - Reduce latency and dependence on centralized servers.
 
-6. Automated Alert Escalation System
+### 6. Automated Alert Escalation System
 
   - Trigger tiered alerts (visual → audio → authority notification).
-
   - Integrate SMS/email alerts for emergency response teams.
 
-7. Weather & Event-Aware Crowd Prediction
+### 7. Weather & Event-Aware Crowd Prediction
 
   - Combine crowd data with weather and event schedules.
-
   - Improve prediction accuracy during peak or abnormal conditions.
 
 ---
