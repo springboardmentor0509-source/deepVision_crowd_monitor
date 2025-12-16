@@ -5,6 +5,7 @@ import json
 
 import streamlit as st
 import pandas as pd
+import numpy as np
 from PIL import Image
 import requests
 
@@ -1040,25 +1041,49 @@ elif section == "Live Demo":
                             - 📱 Public information updates
                             """)
                     
-                    # Density Heatmap
+                    # Density Visualization (grayscale map + heatmap)
                     st.markdown("---")
-                    st.subheader("🔥 Crowd Density Heatmap")
-                    
-                    if result.get("heatmap_image"):
-                        try:
-                            heatmap_bytes = bytes.fromhex(result["heatmap_image"])
-                            
-                            col1, col2, col3 = st.columns([1, 3, 1])
-                            with col2:
-                                st.image(
-                                    io.BytesIO(heatmap_bytes),
-                                    caption="AI-Generated Density Map - Red indicates high concentration",
-                                    use_container_width=True
-                                )
-                            
-                            st.info("🎯 The heatmap shows crowd distribution. Red/yellow areas indicate higher density.")
-                        except Exception as e:
-                            st.warning(f"Could not display heatmap: {e}")
+                    st.subheader("🔥 Crowd Density Visualization")
+
+                    density_map = result.get("density_map")
+                    heatmap_hex = result.get("heatmap_image")
+
+                    if density_map or heatmap_hex:
+                        cols = st.columns(2)
+
+                        # Grayscale density map
+                        if density_map is not None:
+                            try:
+                                density_array = np.array(density_map, dtype=float)
+                                if density_array.size > 0:
+                                    norm = density_array - density_array.min()
+                                    if norm.max() > 0:
+                                        norm = norm / norm.max()
+                                    bw_image = Image.fromarray((norm * 255).astype(np.uint8))
+                                    bw_image = bw_image.convert("L")
+                                    with cols[0]:
+                                        st.image(
+                                            bw_image,
+                                            caption="Predicted Density Map (grayscale)",
+                                            use_container_width=True,
+                                        )
+                            except Exception as e:
+                                st.warning(f"Could not display density map: {e}")
+
+                        # Heatmap overlay
+                        if heatmap_hex:
+                            try:
+                                heatmap_bytes = bytes.fromhex(heatmap_hex)
+                                with cols[1]:
+                                    st.image(
+                                        io.BytesIO(heatmap_bytes),
+                                        caption="AI-Generated Density Heatmap (red/yellow = higher density)",
+                                        use_container_width=True,
+                                    )
+                            except Exception as e:
+                                st.warning(f"Could not display heatmap: {e}")
+
+                        st.info("🎯 Left: grayscale density map. Right: heatmap overlay for visual context.")
                     
                     # Technical Details
                     with st.expander("🔧 Technical Details & Raw Data"):
