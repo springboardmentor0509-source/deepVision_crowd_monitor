@@ -34,31 +34,56 @@ By leveraging **Convolutional Neural Networks (CNNs)** and advanced **crowd esti
 
 ##  Architecture Diagram
 
-Project Pipeline
+Project Architecture
+
 ```bash
-┌──────────────┐
-│ Streamlit UI │
-└──────┬───────┘
-       │ HTTP Request (frame)
+┌─────────────┐
+│  Video Feed │  (CCTV / Video File / Live Stream)
+└──────┬──────┘
        ↓
-┌────────────────┐
-│ FastAPI Server │
-│ (Uvicorn)      │
-└──────┬─────────┘
+┌──────────────────┐
+│ Frame Extraction │  (FPS control, frame sampling)
+└──────┬───────────┘
        ↓
-┌────────────────┐
-│ DL Model       │
-│ (PyTorch)      │
-└──────┬─────────┘
+┌──────────────────┐
+│ Preprocessing    │
+│ • Resize         │
+│ • Normalize      │
+│ • Denoise        │
+│ • ROI selection  │
+└──────┬───────────┘
        ↓
-┌────────────────┐
-│ JSON Response  │
-│ count + map    │
-└──────┬─────────┘
+┌──────────────────────────┐
+│ Deep Learning Model      │
+│ • CSRNet                 │
+│ • MobileNetCSRNet        │
+│ • SimpleCNN              │
+└──────┬───────────────────┘
        ↓
-┌──────────────┐
-│ Streamlit UI │
-└──────────────┘
+┌──────────────────┐
+│ Density Map      │
+│ Generation       │
+└──────┬───────────┘
+       ↓
+┌──────────────────┐
+│ Crowd Count      │
+│ Logic (Σ pixels) │
+└──────┬───────────┘
+       ↓
+┌──────────────────────────┐
+│ Overcrowding Detection   │
+│ • Threshold comparison   │
+│ • Temporal smoothing     │
+└──────┬───────────────────┘
+       ↓
+┌──────────────────────────┐
+│ Dashboard & Alerts       │
+│ • Streamlit UI           │
+│ • Heatmaps               │
+│ • Live count             │
+│ • Warning notifications  │
+└──────────────────────────┘
+
 ```
 
 ##  Tech Stack
