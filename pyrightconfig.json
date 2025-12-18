@@ -1,0 +1,6 @@
+{
+  "typeCheckingMode": "basic",
+  "extraPaths": [
+    "D:/Desktop/DeepVision_Crowd/deepVision_crowd_monitor/.venv/Lib/site-packages"
+  ]
+}

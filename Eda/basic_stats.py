@@ -27,7 +27,10 @@ def summarize_dataset(dataset_root):
         for mode in ["train_data", "test_data"]:
             df = analyze_subset(dataset_root, part, mode)
             all_dfs.append(df)
-    return pd.concat(all_dfs, ignore_index=True)
+            final_df = pd.concat(all_dfs, ignore_index=True)
+            # final_df.to_csv(save_path, index=False)
+            # print(f"[✔] Saved CSV file at: {save_path}")
+    return final_df
 
 def check_corruption(dataset_root):
     corrupted = []
@@ -37,3 +40,5 @@ def check_corruption(dataset_root):
                 try: Image.open(os.path.join(root, f)).verify()
                 except: corrupted.append(f)
     return corrupted
+
+

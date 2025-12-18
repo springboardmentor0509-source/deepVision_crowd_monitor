@@ -10,12 +10,32 @@ def display_random_samples(dataset_root, part, mode, n=4):
     files = random.sample(os.listdir(img_dir), n)
     plt.figure(figsize=(12,8))
     for i,f in enumerate(files):
-        img = cv2.imread(os.path.join(img_dir,f))
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        mat = loadmat(os.path.join(gt_dir, "GT_"+f.split('.')[0]+".mat"))
-        pts = mat["image_info"][0,0][0,0][0]
+        img_path = os.path.join(img_dir, f)
+        gt_path = os.path.join(gt_dir, "GT_" + f.split('.')[0] + ".mat")
+
+        # Read image as BGR (force 3 channels) and validate
+        img_bgr = cv2.imread(img_path, cv2.IMREAD_COLOR)
+        if img_bgr is None:
+            raise FileNotFoundError(f"Image not found or unreadable: {img_path}")
+
+        # Load ground-truth points (MAT structure may vary)
+        mat = loadmat(gt_path)
+        try:
+            pts = mat["image_info"][0, 0][0, 0][0]
+        except Exception:
+            if "annPoints" in mat:
+                pts = mat["annPoints"]
+            elif "points" in mat:
+                pts = mat["points"]
+            else:
+                raise
+
+        # Draw circles on BGR image (cv2 uses BGR colors)
         for p in pts:
-            cv2.circle(img, (int(p[0]),int(p[1])),2,(255,0,0),-1)
+            cv2.circle(img_bgr, (int(p[0]), int(p[1])), 2, (0, 0, 255), -1)
+
+        # Convert to RGB for matplotlib
+        img = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
         plt.subplot(2,n//2,i+1)
         plt.imshow(img); plt.axis("off")
         plt.title(f"{f} | {len(pts)}")

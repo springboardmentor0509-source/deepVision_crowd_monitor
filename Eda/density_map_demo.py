@@ -24,10 +24,28 @@ def show_density_example(img_path, gt_path):
     """
     Display an image and its corresponding density map side by side.
     """
-    img = cv2.imread(img_path)
+    # Read image as BGR (force 3 channels) and validate
+    img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+    if img is None:
+        raise FileNotFoundError(f"Image not found or unreadable: {img_path}")
+
+    # If image is single-channel for some reason, convert to BGR first
+    if img.ndim == 2:
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+    # Convert BGR -> RGB for plotting with matplotlib
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    # Load ground-truth points (MAT file structure may vary between datasets)
     mat = loadmat(gt_path)
-    pts = mat["image_info"][0, 0][0, 0][0]  # ground-truth head points
+    try:
+        pts = mat["image_info"][0, 0][0, 0][0]  # ground-truth head points
+    except Exception:
+        # fallback: try common alternative keys
+        if "annPoints" in mat:
+            pts = mat["annPoints"]
+        else:
+            raise
 
     #  FIX: use img.shape[:2] (height, width)
     density = generate_density_map(img.shape[:2], pts)

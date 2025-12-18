@@ -1,5 +1,6 @@
+
 # Python & Virtual Env
-venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
@@ -14,4 +15,3 @@ crowd_video.mp4
 Thumbs.db
 .idea/
 .vscode/
-.venv/

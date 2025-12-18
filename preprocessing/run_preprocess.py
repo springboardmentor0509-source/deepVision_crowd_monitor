@@ -2,8 +2,8 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from split_processor import process_split
-import config as config
+from preprocessing.split_processor import process_split
+import preprocessing.config as config
 
 
 splits = [

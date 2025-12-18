@@ -6,10 +6,10 @@ from PIL import Image
 from tqdm import tqdm
 import pandas as pd
 
-from mat_parser import load_points_from_mat
-from density_map import geometry_adaptive_density
-from resize_utils import resize_image_density
-from patch_extractor import extract_patches
+from preprocessing.mat_parser import load_points_from_mat
+from preprocessing.density_map import geometry_adaptive_density
+from preprocessing.resize_utils import resize_image_density
+from preprocessing.patch_extractor import extract_patches
 
 def mkdir(path):
     os.makedirs(path, exist_ok=True)
