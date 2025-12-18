@@ -107,5 +107,5 @@ docker run -p 8501:8501 -p 8000:8000 deepvision
 - [ ] **Edge Deployment**: Optimization for Jetson Nano / Raspberry Pi.
 
 ---
-*Created for the DeepVision Project.*
+
 
