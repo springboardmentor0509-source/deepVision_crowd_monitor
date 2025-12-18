@@ -67,8 +67,8 @@ Ensure you have Python 3.8+ installed.
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/AI-DeepVision.git
-cd AI-DeepVision/deepVision_crowd_monitor
+git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
+cd deepVision_crowd_monitor
 pip install -r requirements.txt
 ```
 
