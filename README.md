@@ -140,8 +140,13 @@ Crowd Count Logic → Overcrowding Detection → Dashboard + Alerts
 - PyTorch 2.5.1+
 
 ### **1. Clone the Repository**
+
+> **⚠️ IMPORTANT**: This project is actively developed on the `charan` branch.  
+> The `main` branch contains an older structure.  
+> **Always clone from the `charan` branch** for the final working code:
+
 ```bash
-git clone https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
+git clone -b charan https://github.com/springboardmentor0509-source/deepVision_crowd_monitor.git
 cd deepVision_crowd_monitor
 ```
 
